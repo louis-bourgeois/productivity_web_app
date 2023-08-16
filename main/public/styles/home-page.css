@@ -1,0 +1,26 @@
+:root {
+  --blue-main: #007aff;
+  --light-grey: #d1d1d1;
+  --grey: #828282;
+  --white: #ffffff;
+  --black: #000000;
+  --red: #ff0000;
+  --purple: #8f00ff;
+  --black-assets: #007aff;
+  --color-gradient-dark-task: rgb(205, 152, 90);
+  --color-gradient-dark-notes: rgb(205, 152, 90);
+  --color-title-dark: rgb(35, 133, 231);
+}
+#title {
+  color: var(--black);
+  font-size: clamp(2.5vw, 5vw, 15vw);
+  margin-top: 25vh;
+}
+#title > span {
+  color: #d2a5a5;
+}
+#subtitle {
+  margin-top: 3vh;
+  font-size: clamp(1vw, 2vw, 10vw);
+  color: var(--grey);
+}

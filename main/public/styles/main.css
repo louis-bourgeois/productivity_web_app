@@ -1,0 +1,115 @@
+:root {
+  --blue-main: #007aff;
+  --white: #ffffff;
+  --light-grey: #d1d1d1;
+  --grey: #828282;
+  --black: #000000;
+  --red: #ff0000;
+  --purple: #8f00ff;
+  --black-assets: #0d0c0c;
+  --color-gradient-dark-task: rgb(205, 152, 90);
+  --color-gradient-dark-notes: rgb(205, 152, 90);
+  --color-title-dark: rgb(35, 133, 231);
+  --main-color: #ffffff;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--main-color);
+  scroll-behavior: smooth;
+}
+* {
+  list-style: none;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+.blue {
+  color: var(--blue-main);
+}
+.grey {
+  color: var(--grey);
+}
+.poppins {
+  font-family: "Poppins", sans-serif;
+}
+.neue {
+  font-family: "Neue Haas Grotesk Display Pro";
+}
+.thin {
+  font-weight: 250;
+}
+.extralight {
+  font-weight: 275;
+}
+.light {
+  font-weight: 300;
+}
+.medium {
+  font-weight: 500;
+}
+.semibold {
+  font-weight: 600;
+}
+.bold {
+  font-weight: 700;
+}
+.extrabold {
+  font-weight: 800;
+}
+.text-black {
+  font-weight: 900;
+}
+
+.w100 {
+  width: 100vw;
+}
+.flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flex-v {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  align-items: center;
+}
+#login-container {
+  border: 2px solid var(--blue-main);
+  border-radius: 400px;
+}
+#navbar-flex-container {
+  margin-top: 1.5vh;
+}
+#logo-tabs-container {
+  width: 37vw;
+}
+#logo {
+  height: clamp(1.8vw, 3.6vw, 4.4vw);
+  margin-left: clamp(0.8vw, 2vw, 4vw);
+}
+#tabs-container {
+  width: 15vw;
+  justify-content: space-around;
+}
+#logo-tabs-container > a {
+  font-size: clamp(8px, 1.5vw, 2.5vw);
+}
+#login-container {
+  margin-right: 2vw;
+}
+#login {
+  font-size: clamp(15px, 2vw, 3.1vw);
+  padding: 0.5vw clamp(1vw, 1.25vw, 1.75vw);
+}
