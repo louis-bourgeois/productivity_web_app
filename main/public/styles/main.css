@@ -1,3 +1,7 @@
+@import url("https://fonts.cdnfonts.com/css/helvetica-neue-5");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.cdnfonts.com/css/neue-haas-grotesk-display-pro");
+
 :root {
   --blue-main: #007aff;
   --white: #ffffff;
@@ -12,7 +16,6 @@
   --color-title-dark: rgb(35, 133, 231);
   --main-color: #ffffff;
 }
-
 body,
 html {
   margin: 0;
@@ -85,31 +88,42 @@ html {
   justify-content: space-between;
   align-items: center;
 }
-#login-container {
-  border: 2px solid var(--blue-main);
-  border-radius: 400px;
+.h-100prt {
+  height: 100%;
 }
-#navbar-flex-container {
-  margin-top: 1.5vh;
+.border-blue {
+  border: 1px solid var(--blue-main);
 }
-#logo-tabs-container {
-  width: 37vw;
+.rCircleHigh {
+  border-radius: 600px;
 }
-#logo {
-  height: clamp(1.8vw, 3.6vw, 4.4vw);
-  margin-left: clamp(0.8vw, 2vw, 4vw);
+.shadow {
+  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.25);
 }
-#tabs-container {
-  width: 15vw;
-  justify-content: space-around;
+#nav-container {
+  margin: clamp(1vh, 2vh, 3vh) 0;
 }
-#logo-tabs-container > a {
-  font-size: clamp(8px, 1.5vw, 2.5vw);
+#prph,
+#prph-container {
+  height: 5vw;
 }
-#login-container {
-  margin-right: 2vw;
+#nav-container *:not(span, #add-container) {
+  margin: 0 clamp(10px, 1vw, 3vw);
 }
-#login {
-  font-size: clamp(15px, 2vw, 3.1vw);
-  padding: 0.5vw clamp(1vw, 1.25vw, 1.75vw);
+#nav-container h1 {
+  text-align: center;
+  text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.46);
+  font-size: 4.167vw;
+}
+#search-bar-container {
+  width: 5vw;
+  height: 5vw;
+  margin: 0;
+}
+#add-container {
+  width: 8.2vw;
+  margin-top: 0.4vw;
+}
+#add-container svg {
+  fill: var(--blue-main);
 }
