@@ -1,25 +1,32 @@
 import express from "express";
 const app = express();
 const PORT = 3000;
-const language = "en";
+const language = "fr";
 const fName = "Louis";
-const days = [
-  "Dimanche",
-  "Lundi",
-  "Mardi",
-  "Mercredi",
-  "Jeudi",
-  "Vendredi",
-  "Samedi",
-];
-app.use(express.static("public"));
+const days =
+  language === "en"
+    ? [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ]
+    : ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
 
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
   res.render("home.ejs");
 });
-
+app.get("/register", (req, res) => {
+  res.render("register.ejs");
+});
+app.post("/register", (req, res) => {});
 app.get("/currently", (req, res) => {
   let week = [];
   let currentDate, hours;
@@ -61,6 +68,12 @@ app.get("/currently", (req, res) => {
       } else if (language == "fr") {
         moment = "Bonjour, ";
       }
+    } else if (13 <= hours && hours < 19) {
+      if (language == "en") {
+        moment = "Good Afternoon, ";
+      } else if (language == "fr") {
+        moment = "Bonjour, ";
+      }
     } else if (language == "en" || language == "fr") {
       moment = "Bon Appétit, ";
     }
@@ -71,6 +84,7 @@ app.get("/currently", (req, res) => {
     fName: fName,
     timeInfos: week,
     moment: moment,
+    language: language,
   });
 });
 app.listen(PORT, () => {
