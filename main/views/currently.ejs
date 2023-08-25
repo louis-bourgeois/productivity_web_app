@@ -24,7 +24,12 @@
   </head>
 
   <body class="hidden">
-    <div id="menu-views" class="menu flex center blur" style="z-index: 50">
+    <div id="blur"></div>
+    <div
+      id="menu-views"
+      class="menu flex center blur hidden"
+      style="z-index: 50"
+    >
       <div class="dropdown-menu flex-v center">
         <div id="views-selection" class="row flex">
           <h4
@@ -146,10 +151,14 @@
             </div>
           </div>
         </div>
+        <div id="viewsMenuBouttonContainer">
+          <button></button>
+          <button></button>
+        </div>
       </div>
     </div>
     <%- include('partials/header') %>
-    <div id="blur"></div>
+
     <section id="cards">
       <div id="cards-container" class="swiper-container">
         <div class="swiper-wrapper">
@@ -175,11 +184,11 @@
                 </h4>
                 <% } %>
                 <div class="flex" id="buttonHourContainer">
-                  <button id="dots-container" class="rCircleHigh .menu-toggle">
+                  <button class="rCircleHigh .menu-toggle dots-container">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 20 20"
-                      id="dots"
+                      class="dots"
                     >
                       <path
                         d="M10.001 7.8a2.2 2.2 0 1 0 0 4.402A2.2 2.2 0 0 0 10 7.8zm-7 0a2.2 2.2 0 1 0 0 4.402A2.2 2.2 0 0 0 3 7.8zm14 0a2.2 2.2 0 1 0 0 4.402A2.2 2.2 0 0 0 17 7.8z"

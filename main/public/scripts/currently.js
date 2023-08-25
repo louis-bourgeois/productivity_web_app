@@ -1,18 +1,21 @@
 import { addClassTo, removeClassTo, toggleClassTo } from "./main.js";
 
-const [prph, menu, viewsMenu, dots, dotsContainer] = [
+const [prph, menu, viewsMenu, addNewContainer, addNewsvg, navbar] = [
   "prph",
   "menu",
   "menu-views",
-  "dots",
-  "dots-container",
+  "add-container",
+  "add-new",
+  "navbar",
 ].map((id) => document.getElementById(id));
+const dotsContainer = document.querySelectorAll(".dots-container");
 const clocks = [...document.querySelectorAll("p.clock")];
 const prphRect = prph.getBoundingClientRect();
 const optionsArray = document.querySelectorAll(".options");
 const option = document.querySelectorAll(".option");
 const dropDownArrows = document.querySelectorAll(".dropdown.arrow");
 const blurFullScreen = document.querySelector("#blur");
+let viewsMenuIsOpen = false;
 
 // Check if essential elements are found
 if (!prph || !menu || !viewsMenu || !dotsContainer || !blurFullScreen) {
@@ -54,9 +57,11 @@ function blurMenu() {
     console.error("Error in blurMenu function:", error);
   }
 }
-
+function add() {
+  console.log("add appelée");
+}
 document.addEventListener("DOMContentLoaded", function () {
-  toggleClassTo(viewsMenu);
+  removeClassTo(viewsMenu);
   updateClock();
   setInterval(updateClock, 1000);
   prph.addEventListener("click", () => toggleClassTo(menu.classList, "open"));
@@ -74,19 +79,42 @@ if (cardsContainer) {
 } else {
   console.warn("Element with ID 'cards-container' not found.");
 }
-
-dotsContainer.addEventListener("click", function () {
-  try {
-    toggleClassTo(viewsMenu, "open");
-    const addNewElement = document.querySelector("#add-new");
-    if (!addNewElement) {
-      console.warn("Element with ID 'add-new' not found.");
-      return;
+dotsContainer.forEach(function (dotsContainerThis) {
+  dotsContainerThis.addEventListener("click", function () {
+    try {
+      if (!navbar) {
+        console.warn("Element with ID 'search-bar-container' not found.");
+        return;
+      } else {
+        toggleClassTo(navbar, "ontop");
+      }
+      toggleClassTo(viewsMenu, "open");
+      viewsMenuIsOpen = true;
+      if (!addNewContainer) {
+        console.warn("Element with ID 'add-new' not found.");
+        return;
+      }
+      toggleClassTo(
+        [addNewContainer, addNewsvg],
+        ["top-right-corner", "ontop"]
+      );
+      blurMenu();
+    } catch (error) {
+      console.error("Error in dotsContainer click event listener:", error);
     }
-    toggleClassTo(addNewElement, ["top-right-corner", "ontop"]);
-    blurMenu();
-  } catch (error) {
-    console.error("Error in dotsContainer click event listener:", error);
+    console.log(viewsMenuIsOpen);
+  });
+});
+
+addNewContainer.addEventListener("click", function () {
+  if (viewsMenuIsOpen) {
+    toggleClassTo(navbar, "ontop");
+    toggleClassTo(viewsMenu, "open");
+    viewsMenuIsOpen = false;
+    toggleClassTo(blurFullScreen, "blur-background");
+    toggleClassTo([addNewContainer, addNewsvg], ["top-right-corner", "ontop"]);
+  } else {
+    add();
   }
 });
 

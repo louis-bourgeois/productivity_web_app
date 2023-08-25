@@ -106,10 +106,12 @@
 }
 .option-displayed {
   font-size: 1vw;
-}
-#add-new {
-  transition: rotate 0.5 ease-in-out;
+}#add-container {
+  cursor: pointer;
+  transition: transform 0.5s ease-in-out;
 }
 .top-right-corner {
-  transform: rotate(45deg);
+  transform: rotate(22.5deg);
+  transition: transform 0.5s ease-in-out;
 }
+
