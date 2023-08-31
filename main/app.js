@@ -1,10 +1,15 @@
 import express from "express";
-const app = express();
+
+// Configuration
 const PORT = 3000;
-const language = "fr";
+const language = "en";
 const fName = "Louis";
-const days =
-  language === "en"
+const lName = "Bourgeois";
+const isSubscribed = true;
+
+// Helper function to get days by language
+function getDaysByLanguage(language) {
+  return language === "en"
     ? [
         "Sunday",
         "Monday",
@@ -15,78 +20,89 @@ const days =
         "Saturday",
       ]
     : ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+}
 
+const DAYS = getDaysByLanguage(language);
+
+// Express setup
+const app = express();
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
-app.get("/", (req, res) => {
-  res.render("home.ejs");
+// Routes
+app.get("/", (req, res) => res.render("home"));
+app.get("/register", (req, res) => res.render("register"));
+app.post("/register", (req, res) => {
+  // TODO: Implement logic here
 });
-app.get("/register", (req, res) => {
-  res.render("register.ejs");
-});
-app.post("/register", (req, res) => {});
-app.get("/currently", (req, res) => {
-  let week = [];
-  let currentDate, hours;
 
-  for (let i = 0; i < 8; i++) {
-    currentDate = new Date();
-    currentDate.setDate(currentDate.getDate() + i); // Incrémente la date de 'i' jours
-    const dayNumber = currentDate.getDate();
-    const month = currentDate.getMonth() + 1; // Les mois en JS sont indexés de 0 (janvier) à 11 (décembre)
-    const year = currentDate.getFullYear();
-    hours = currentDate.getHours();
-    const minutes = String(currentDate.getMinutes()).padStart(2, "0");
-    const dayName = days[currentDate.getDay()];
-    let time = `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
-      2,
-      "0"
-    )}`;
-    let thisDay = { dayNumber, dayName, time };
-    week.push(thisDay);
-  }
+// HERE: Sending data to 'currently.ejs'
+app.get("/currently", (req, res) => res.render("currently", getCurrentInfo()));
 
-  let moment = "";
-  function dayMoment(hours) {
-    if (19 <= hours && hours < 23) {
-      if (language == "en") {
-        moment = "Good Evening,";
-      } else {
-        moment = "Bonsoir, ";
-      }
-    } else if (hours >= 23 || hours < 6) {
-      if (language == "en") {
-        moment = "Good Night,  ";
-      } else if (language == "fr") {
-        moment = "Bonne nuit, ";
-      }
-    } else if (6 <= hours && hours < 12) {
-      if (language == "en") {
-        moment = "Good Morning, ";
-      } else if (language == "fr") {
-        moment = "Bonjour, ";
-      }
-    } else if (13 <= hours && hours < 19) {
-      if (language == "en") {
-        moment = "Good Afternoon, ";
-      } else if (language == "fr") {
-        moment = "Bonjour, ";
-      }
-    } else if (language == "en" || language == "fr") {
-      moment = "Bon Appétit, ";
-    }
-  }
-  dayMoment(hours);
-  console.log(week);
-  res.render("currently.ejs", {
-    fName: fName,
-    timeInfos: week,
-    moment: moment,
-    language: language,
-  });
-});
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+// Helper function to get current info
+function getCurrentInfo() {
+  const week = [];
+  let currentDate;
+  let hours = new Date().getHours(); // Added this line
+
+  for (let i = 0; i < 7; i++) {
+    currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() + i);
+    const dayInfo = getDayInfo(currentDate);
+    week.push(dayInfo);
+  }
+
+  const moment = getDayMoment(hours, language);
+  return {
+    isSubscribed,
+    fName,
+    lName,
+    fullName: fName + "" + lName,
+    timeInfos: week,
+    moment,
+    language,
+  }; // 'language' is part of the returned object
+}
+
+// Helper function to get day info
+function getDayInfo(date) {
+  const dayNumber = date.getDate();
+  const dayName = DAYS[date.getDay()];
+  const hours = date.getHours();
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const time = `${String(hours).padStart(2, "0")}:${minutes}`;
+  return { dayNumber, dayName, time };
+}
+
+// Helper function to get day moment
+function getDayMoment(hours, language) {
+  let moments = {
+    en: {
+      evening: "Good Evening,",
+      night: "Good Night,",
+      morning: "Good Morning,",
+      afternoon: "Good Afternoon,",
+      meal: "Bon Appétit,",
+    },
+    fr: {
+      evening: "Bonsoir,",
+      night: "Bonne nuit,",
+      morning: "Bonjour,",
+      afternoon: "Bonjour,",
+      meal: "Bon Appétit,",
+    },
+  };
+
+  if (19 <= hours && hours < 23) return moments[language].evening;
+  if (hours >= 23 || hours < 6) return moments[language].night;
+  if (6 <= hours && hours < 12) return moments[language].morning;
+  if (12 <= hours && hours < 13) return moments[language].meal; // Added this line
+  if (13 <= hours && hours < 19) return moments[language].afternoon;
+  return "Hello,";
+}
