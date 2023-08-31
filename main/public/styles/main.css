@@ -5,34 +5,50 @@
 
 :root {
   --blue-main: #007aff;
-  --white: #ffffff;
+  --opposite-color: black;
   --light-grey: #d1d1d1;
   --grey: #828282;
-  --black: #000000;
   --red: #ff0000;
   --purple: #8f00ff;
   --black-assets: #0d0c0c;
   --color-gradient-dark-task: rgb(205, 152, 90);
   --color-gradient-dark-notes: rgb(205, 152, 90);
   --color-title-dark: rgb(35, 133, 231);
-  --main-color: #ffffff;
+  --main-color: white;
+  --background-color: white;
+}
+:root.dark-mode {
+  --blue-main: #007aff;
+  --opposite-color: #ffffff;
+  --light-grey: #d1d1d1;
+  --grey: #828282;
+  --red: #ff0000;
+  --purple: #8f00ff;
+  --black-assets: #0d0c0c;
+  --color-gradient-dark-task: rgb(205, 152, 90);
+  --color-gradient-dark-notes: rgb(205, 152, 90);
+  --color-title-dark: rgb(35, 133, 231);
+  --main-color: #0d0c0c;
+  --background-color: #020202;
 }
 body,
 html {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: var(--main-color);
+  background-color: var(--background-color);
   scroll-behavior: smooth;
-  height: 100vh;
-  width: 100vw;
 }
 * {
   list-style: none;
   text-decoration: none;
   margin: 0;
   padding: 0;
-  transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out, color 0.3s ease-in-out,
+    fill 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+.grid {
+  display: grid;
 }
 .blue {
   color: var(--blue-main);
@@ -73,7 +89,12 @@ html {
 .text-black {
   font-weight: 900;
 }
-
+.noselect {
+  -webkit-user-select: none; /* Chrome, Safari, Opera */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none; /* Standard syntax */
+}
 .w100 {
   width: 100vw;
 }
@@ -145,50 +166,60 @@ html {
   -ms-user-select: none; /* IE 10+ */
 }
 .menu {
-  visibility: hidden;
-  height: 5vw;
   position: fixed;
   background-color: var(--main-color);
   filter: drop-shadow(0px 4px 44px rgba(0, 0, 0, 0.25));
   opacity: 0%;
-  border-radius: 35px;
-  transition: visibility 0.5s ease-in-out, opacity 0.5s ease-in-out,
-    height 0.5s ease-in-out, width 0.5s ease-in-out;
+  border-radius: 45px;
+}
+#menu {
+  border-radius: 3.125vw;
+  border-top-left-radius: 0;
+  top: 0;
+  left: 0;
+  width: 16vw;
 }
 .menu.open {
   visibility: visible;
   opacity: 100%;
   height: 70vh;
-  width: 18vw;
-  transition: display 0.5s ease-in-out, opacity 0.5s ease-in-out,
-    height 0.5s ease-in-out, width 0.5s ease-in-out;
+  width: 12.5vw;
+  z-index: 1500;
+  justify-content: space-evenly;
 }
 
 #nav-container {
   margin-top: clamp(1vh, 2vh, 3vh);
 }
-#prph,
-#prph-container {
-  height: 5vw;
-}
 #prph {
   cursor: pointer;
+  height: 5vw;
 }
 .ontop {
   z-index: 2000;
 }
-#nav-container *:not(span, #add-container, #menu) {
-  margin: 0 clamp(10px, 1vw, 3vw);
+#nav-container *:not(span, #prph, #add-container, #menu, #prph-container) {
+  margin: 0 clamp(10px, 1.3vw, 3vw);
+}
+#prph-container {
+  height: 5vw;
+  z-index: 1501;
+  margin-left: 1vw;
 }
 #nav-container h1 {
   text-align: center;
   text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.46);
   font-size: 4.167vw;
+  color: var(--opposite-color);
 }
 #search-bar-container {
   width: 5vw;
   height: 5vw;
   margin: 0;
+  cursor: pointer;
+}
+#search {
+  fill: var(--opposite-color);
 }
 #add-container {
   width: 8.2vw;
@@ -234,10 +265,6 @@ html {
   height: 4vh;
   margin-right: 0;
   width: auto;
-  margin-bottom: 2vw;
-}
-#card-nav > div {
-  margin: 0;
 }
 #buttonHourContainer {
   gap: 2.5vw;
@@ -250,4 +277,77 @@ html {
   top: 0;
   left: 0;
   z-index: 2;
+}
+.elementsContainer {
+  height: 90%;
+  overflow: scroll;
+}
+.mMenuRow {
+  justify-content: space-around;
+}
+#infosRow {
+  margin-top: 14%;
+  width: 65%;
+  margin-left: 21%;
+  justify-self: start;
+}
+#mMenufName {
+  font-size: 1.563vw;
+}
+#userInfos {
+  align-items: flex-start;
+  margin-left: 2.5vw;
+}
+.planOptions {
+  font-size: 0.8vw;
+  letter-spacing: 1.5px;
+  margin-top: 5%;
+  cursor: pointer;
+}
+#settingsPath {
+  stroke: var(--opposite-color);
+}
+#settingsSvg {
+  width: 1.5vw;
+  margin-left: 1vw;
+  transition: transform 1s ease-in-out;
+  cursor: pointer;
+}
+
+#settingsSvg:hover {
+  transform: rotate(120deg);
+}
+#settingsTabsContainer {
+  height: 73%;
+  margin-bottom: 15%;
+  width: 90.75%;
+}
+.mMenuRow {
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+.mMenuRow:hover:not(#infosRow, #exitSettings) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.scaleDown {
+  transform: scale(0.8);
+}
+#menu * {
+  user-select: none;
+  
+}
+#prph.scaleDown {
+  margin-bottom: 15%;
+}
+.mMenuLine {
+  height: 1px;
+  width: 92.88%;
+  background-color: var(--grey);
+}
+.settingsLibelle {
+  font-size: 20px;
+}
+#layoutSettings {
+  margin-top: 5%;
 }

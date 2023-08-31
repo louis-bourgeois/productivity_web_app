@@ -1,5 +1,4 @@
 import { addClassTo, removeClassTo, toggleClassTo } from "./main.js";
-
 const [prph, menu, viewsMenu, addNewContainer, addNewsvg, navbar] = [
   "prph",
   "menu",
@@ -8,9 +7,10 @@ const [prph, menu, viewsMenu, addNewContainer, addNewsvg, navbar] = [
   "add-new",
   "navbar",
 ].map((id) => document.getElementById(id));
+
 const dotsContainer = document.querySelectorAll(".dots-container");
 const clocks = [...document.querySelectorAll("p.clock")];
-const prphRect = prph.getBoundingClientRect();
+
 const optionsArray = document.querySelectorAll(".options");
 const option = document.querySelectorAll(".option");
 const dropDownArrows = document.querySelectorAll(".dropdown.arrow");
@@ -24,12 +24,7 @@ if (!prph || !menu || !viewsMenu || !dotsContainer || !blurFullScreen) {
   );
 }
 
-Object.assign(menu.style, {
-  top: `${prphRect.top}px`,
-  left: `${prphRect.left}px`,
-});
-
-removeClassTo(menu, "open");
+removeClassTo(viewsMenu, "open");
 
 function updateClock() {
   try {
@@ -88,7 +83,7 @@ dotsContainer.forEach(function (dotsContainerThis) {
       } else {
         toggleClassTo(navbar, "ontop");
       }
-      toggleClassTo(viewsMenu, "open");
+      toggleClassTo(viewsMenu, ["", "open"]);
       viewsMenuIsOpen = true;
       if (!addNewContainer) {
         console.warn("Element with ID 'add-new' not found.");
@@ -142,6 +137,7 @@ option.forEach((option_this) => {
   option_this.addEventListener("click", () => {
     try {
       toggleClassTo(option_this.parentElement);
+      submitDotsMenuChoices();
     } catch (error) {
       console.error("Error in option click event listener:", error);
     }

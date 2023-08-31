@@ -16,17 +16,11 @@
 
 /* Card navigation styles */
 #card-nav {
+  width: 100%;
   height: 10%;
 }
-#card-nav
-  *:not(
-    #buttonHourContainer,
-    #menu-views,
-    .selectedOption,
-    .dropdown-menu,
-    #menu-views * :not(svg.dots)
-  ) {
-  margin-top: 2vw;
+.card {
+  align-items: start;
 }
 .navtext {
   height: 100%;
@@ -106,12 +100,12 @@
 }
 .option-displayed {
   font-size: 1vw;
-}#add-container {
+}
+#add-container {
   cursor: pointer;
-  transition: transform 0.5s ease-in-out;
+  transition: transform 0.8s ease;
 }
 .top-right-corner {
   transform: rotate(22.5deg);
-  transition: transform 0.5s ease-in-out;
+  transition: transform 0.5s ease;
 }
-

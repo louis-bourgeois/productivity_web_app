@@ -1,188 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Meta tags for proper rendering and responsiveness -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- Page title -->
     <title>Currently</title>
-
-    <!-- Local stylesheets -->
     <link rel="stylesheet" href="styles/main.css" />
     <link rel="stylesheet" href="styles/currently.css" />
-
-    <!-- Local JavaScript modules -->
     <script defer type="module" src="scripts/main.js"></script>
     <script defer type="module" src="scripts/currently.js"></script>
-
-    <!-- External library stylesheet -->
     <link
       rel="stylesheet"
       href="https://unpkg.com/swiper/swiper-bundle.min.css"
     />
   </head>
-
   <body class="hidden">
+    <script>
+      const language = "<%= language %>";
+    </script>
+
     <div id="blur"></div>
-    <div
-      id="menu-views"
-      class="menu flex center blur hidden"
-      style="z-index: 50"
-    >
-      <div class="dropdown-menu flex-v center">
-        <div id="views-selection" class="row flex">
-          <h4
-            id="views-libelle"
-            class="left-libelle inter extrabold text-shadow"
-          >
-            Views
-          </h4>
-          <div class="dropdown-container flex" id="views-dropdown-container">
-            <div class="selectedOption">
-              <span class="inter medium text-shadow option-displayed"
-                >Default
-              </span>
-            </div>
-            <div class="svg-container flex" id="arrow-dropdown-container-views">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                id="down-arrow"
-                class="dropdown arrow"
-              >
-                <path
-                  d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59A1,1,0,0,0,17,9.17Z"
-                ></path>
-              </svg>
-            </div>
-            <div class="options hidden" id="viewsOption">
-              <div class="option">
-                <span class="inter light text-shadow option-displayed"
-                  >Default</span
-                >
-              </div>
-              <div class="option">
-                <span class="inter light text-shadow option-displayed"
-                  >Compact</span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-        <div id="Sort-By" class="row flex">
-          <h4
-            id="Sort-By-libelle"
-            class="left-libelle inter extrabold text-shadow"
-          >
-            Sort By
-          </h4>
-          <div class="dropdown-container flex" id="Sort-By-dropdown-container">
-            <div class="selectedOption">
-              <span class="inter medium text-shadow option-displayed"
-                >Select
-              </span>
-            </div>
-            <div class="svg-container flex" id="arrow-dropdown-container-views">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                id="down-arrow"
-                class="dropdown arrow"
-              >
-                <path
-                  d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59A1,1,0,0,0,17,9.17Z"
-                ></path>
-              </svg>
-            </div>
-            <div class="options hidden" id="viewsOption">
-              <div class="option">
-                <span class="inter light text-shadow option-displayed"
-                  >Default</span
-                >
-              </div>
-              <div class="option">
-                <span class="inter light text-shadow option-displayed"
-                  >Compact</span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-        <div id="only-show" class="row flex">
-          <h4
-            id="only-show-libelle"
-            class="left-libelle inter extrabold text-shadow"
-          >
-            Only show
-          </h4>
-          <div
-            class="dropdown-container flex"
-            id="only-show-dropdown-container"
-          >
-            <div class="selectedOption">
-              <span class="inter medium text-shadow option-displayed"
-                >Select
-              </span>
-            </div>
-            <div class="svg-container flex" id="arrow-dropdown-container-views">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                id="down-arrow"
-                class="dropdown arrow"
-              >
-                <path
-                  d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59A1,1,0,0,0,17,9.17Z"
-                ></path>
-              </svg>
-            </div>
-            <div class="options hidden" id="viewsOption">
-              <div class="option">
-                <span class="inter light text-shadow option-displayed"
-                  >Default</span
-                >
-              </div>
-              <div class="option">
-                <span class="inter light text-shadow option-displayed"
-                  >Compact</span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-        <div id="viewsMenuBouttonContainer">
-          <button></button>
-          <button></button>
-        </div>
-      </div>
-    </div>
-    <%- include('partials/header') %>
+    <%- include('partials/menu-views') %> <%- include('partials/header') %>
 
     <section id="cards">
       <div id="cards-container" class="swiper-container">
         <div class="swiper-wrapper">
-          <% let index = 1; if (locals.timeInfos) { for (let i of timeInfos) {
+          <% let index = 1; if (locals.timeInfos) { for (const i of timeInfos) {
           %>
-          <div class="swiper-slide">
-            <div class="card" id="<%= index %>">
+          <div class="swiper-slide flex-v">
+            <div class="card flex-" id="<%= index %>">
               <div class="flex" id="card-nav">
                 <p class="inter light navtext" id="dayNumber">
                   <%= i.dayNumber %>
                 </p>
-                <% if (index == 1) { if (language == "en") { %>
-                <h4 class="inter extrabold navtext text-shadow">Today</h4>
-                <% } else if (language == "fr") { %>
-                <h4 class="inter extrabold navtext text-shadow">Aujourd'hui</h4>
-                <% } } else if (index == 2) { if (language == "en") { %>
-                <h4 class="inter extrabold navtext text-shadow">Tomorrow</h4>
-                <% } else if (language == "fr") { %>
-                <h4 class="inter extrabold navtext text-shadow">Demain</h4>
-                <% } } else { %>
                 <h4 class="inter extrabold navtext text-shadow">
-                  <%= i.dayName %>
+                  <% if (index === 1) { %><%= language === 'en' ? 'Today' :
+                  'Aujourd\'hui' %><% } else if (index === 2) { %><%= language
+                  === 'en' ? 'Tomorrow' : 'Demain' %><% } else { %><%= i.dayName
+                  %><% } %>
                 </h4>
-                <% } %>
                 <div class="flex" id="buttonHourContainer">
                   <button class="rCircleHigh .menu-toggle dots-container">
                     <svg
@@ -199,15 +54,14 @@
                   <p class="clock inter light blue"></p>
                 </div>
               </div>
+              <div class="elementsContainer flex-v" id="<%= i.dayName %>"></div>
             </div>
           </div>
           <% index++; } } %>
         </div>
       </div>
     </section>
-    <script>
-      var lang = "<%=language%>";
-    </script>
+
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   </body>
 </html>

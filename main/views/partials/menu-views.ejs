@@ -1,0 +1,119 @@
+<div id="menu-views" class="menu flex center blur hidden" style="z-index: 50">
+  <div class="dropdown-menu flex-v center">
+    <!-- Views Selection -->
+    <div id="views-selection" class="row flex">
+      <h4 id="views-libelle" class="left-libelle inter extrabold text-shadow">
+        <%= language === 'en' ? 'View' : 'Vue' %>
+      </h4>
+      <div class="dropdown-container flex" id="views-dropdown-container-1">
+        <div class="selectedOption">
+          <span class="inter medium text-shadow option-displayed">
+            <%= language === 'en' ? 'Default' : 'Défaut' %>
+          </span>
+        </div>
+        <div class="svg-container flex" id="arrow-dropdown-container-views-1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            class="dropdown arrow"
+          >
+            <path
+              d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59A1,1,0,0,0,17,9.17Z"
+            ></path>
+          </svg>
+        </div>
+        <div class="options hidden" id="viewsOption-1">
+          <div class="option">
+            <span class="inter light text-shadow option-displayed"
+              >Default</span
+            >
+          </div>
+          <div class="option">
+            <span class="inter light text-shadow option-displayed"
+              >Compact</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sort By -->
+    <div id="Sort-By" class="row flex">
+      <h4 id="Sort-By-libelle" class="left-libelle inter extrabold text-shadow">
+        Sort By
+      </h4>
+      <div class="dropdown-container flex" id="Sort-By-dropdown-container-2">
+        <div class="selectedOption">
+          <span class="inter medium text-shadow option-displayed">Select </span>
+        </div>
+        <div class="svg-container flex" id="arrow-dropdown-container-views-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            class="dropdown arrow"
+          >
+            <path
+              d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59A1,1,0,0,0,17,9.17Z"
+            ></path>
+          </svg>
+        </div>
+        <div class="options hidden" id="viewsOption-2">
+          <div class="option">
+            <span class="inter light text-shadow option-displayed"
+              >Default</span
+            >
+          </div>
+          <div class="option">
+            <span class="inter light text-shadow option-displayed"
+              >Compact</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Only Show -->
+    <div id="only-show" class="row flex">
+      <h4
+        id="only-show-libelle"
+        class="left-libelle inter extrabold text-shadow"
+      >
+        Only Show
+      </h4>
+      <div class="dropdown-container flex" id="only-show-dropdown-container-3">
+        <div class="selectedOption">
+          <span class="inter medium text-shadow option-displayed">Select </span>
+        </div>
+        <div class="svg-container flex" id="arrow-dropdown-container-views-3">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            class="dropdown arrow"
+          >
+            <path
+              d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59A1,1,0,0,0,17,9.17Z"
+            ></path>
+          </svg>
+        </div>
+        <div class="options hidden" id="viewsOption-3">
+          <div class="option">
+            <span class="inter light text-shadow option-displayed"
+              >Default</span
+            >
+          </div>
+          <div class="option">
+            <span class="inter light text-shadow option-displayed"
+              >Compact</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Buttons Container -->
+    <div id="viewsMenuButtonContainer">
+      <button></button>
+      <button></button>
+    </div>
+  </div>
+</div>
