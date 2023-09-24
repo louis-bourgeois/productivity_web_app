@@ -41,11 +41,16 @@ html {
 }
 * {
   list-style: none;
-  text-decoration: none;
+  text-decoration: none !important;
   margin: 0;
   padding: 0;
-  transition: opacity 0.2s ease-in-out, color 0.3s ease-in-out,
-    fill 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+  color: inherit !important;
 }
 .grid {
   display: grid;
@@ -89,14 +94,30 @@ html {
 .text-black {
   font-weight: 900;
 }
-.noselect {
-  -webkit-user-select: none; /* Chrome, Safari, Opera */
+* {
+  -webkit-user-select: none; /* chromonium (brave, opera, chrome) */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE 10+ */
   user-select: none; /* Standard syntax */
 }
 .w100 {
   width: 100vw;
+}
+#prph {
+  cursor: pointer;
+  height: 5vw;
+}
+#prph-container {
+  height: 5vw;
+  z-index: 1601;
+  margin-left: 0.68vw;
+}
+#prph,
+#prph-container {
+  transition: all 0.8s ease;
+}
+#prph.scaleDown {
+  transform: scale(0.8);
 }
 .fullscreen {
   position: absolute;
@@ -139,9 +160,17 @@ html {
   box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.25);
 }
 .hidden {
-  visibility: hidden;
   opacity: 0%;
 }
+#menu.hidden {
+  height: 0;
+  width: 0;
+  opacity: 100%;
+}
+#menu.hidden * {
+  opacity: 0%;
+}
+
 .text-shadow {
   text-shadow: 4px 4px 4px rgb(0, 0, 0, 0.25);
 }
@@ -177,41 +206,38 @@ html {
   border-top-left-radius: 0;
   top: 0;
   left: 0;
-  width: 16vw;
+  z-index: 1500;
+  justify-content: space-between;
+  transition: width 0.5s ease-out, height 0.3s ease-out;
+}
+#menu.open {
+  height: 70vh;
+  width: 15vw;
+}
+#menu.open > * {
+  animation: appear 2.5s ease-in-out;
 }
 .menu.open {
-  visibility: visible;
   opacity: 100%;
-  height: 70vh;
-  width: 12.5vw;
-  z-index: 1500;
-  justify-content: space-evenly;
 }
-
 #nav-container {
   margin-top: clamp(1vh, 2vh, 3vh);
 }
-#prph {
-  cursor: pointer;
-  height: 5vw;
-}
+
 .ontop {
   z-index: 2000;
 }
 #nav-container *:not(span, #prph, #add-container, #menu, #prph-container) {
   margin: 0 clamp(10px, 1.3vw, 3vw);
 }
-#prph-container {
-  height: 5vw;
-  z-index: 1501;
-  margin-left: 1vw;
-}
+
 #nav-container h1 {
   text-align: center;
   text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.46);
   font-size: 4.167vw;
   color: var(--opposite-color);
 }
+
 #search-bar-container {
   width: 5vw;
   height: 5vw;
@@ -278,76 +304,84 @@ html {
   left: 0;
   z-index: 2;
 }
-.elementsContainer {
-  height: 90%;
-  overflow: scroll;
+.fName {
+  font-size: 2vw;
 }
-.mMenuRow {
-  justify-content: space-around;
-}
-#infosRow {
-  margin-top: 14%;
-  width: 65%;
-  margin-left: 21%;
-  justify-self: start;
-}
-#mMenufName {
-  font-size: 1.563vw;
-}
-#userInfos {
-  align-items: flex-start;
-  margin-left: 2.5vw;
-}
-.planOptions {
+.plan {
   font-size: 0.8vw;
-  letter-spacing: 1.5px;
-  margin-top: 5%;
   cursor: pointer;
+  letter-spacing: 1px;
 }
-#settingsPath {
-  stroke: var(--opposite-color);
+#elementsContainer {
+  height: 75%;
 }
-#settingsSvg {
-  width: 1.5vw;
-  margin-left: 1vw;
-  transition: transform 1s ease-in-out;
-  cursor: pointer;
+#mMenuStatusInfos {
+  align-items: flex-start;
+  margin-right: 1vw;
 }
-
-#settingsSvg:hover {
-  transform: rotate(120deg);
-}
-#settingsTabsContainer {
-  height: 73%;
-  margin-bottom: 15%;
-  width: 90.75%;
-}
-.mMenuRow {
-  height: 100%;
+#mMenuNavRow {
   width: 100%;
+  height: 24%;
+  justify-content: end;
+}
+#rest {
+  height: 86%;
+  width: 100%;
+}
+.settingsSvg {
+  stroke: var(--opposite-color);
+  width: 1.6vw;
+  margin-right: 1vw;
+  transition: transform 0.75s ease-in-out;
   cursor: pointer;
 }
-.mMenuRow:hover:not(#infosRow, #exitSettings) {
-  background-color: rgba(0, 0, 0, 0.05);
+.settingsSvg:hover {
+  transform: rotate(60deg);
+  stroke: var(--blue-main);
 }
-.scaleDown {
-  transform: scale(0.8);
+.settingsSvg:active {
+  transform: scale(0.75);
 }
-#menu * {
-  user-select: none;
-  
+.tab > * {
+  margin: 5%;
 }
-#prph.scaleDown {
-  margin-bottom: 15%;
+#tabsContainer {
+  width: 100%;
 }
-.mMenuLine {
-  height: 1px;
-  width: 92.88%;
-  background-color: var(--grey);
+.tab-text {
+  font-size: 1.31vw;
+  transition: color 0.2s ease-in-out;
 }
-.settingsLibelle {
-  font-size: 20px;
+.tab-text:hover {
+  color: var(--blue-main);
 }
-#layoutSettings {
-  margin-top: 5%;
+.mMenuRow.tab {
+  justify-content: flex-start;
+  width: 100%;
+  gap: 3%;
+}
+.mMenuRow.tab > span {
+  cursor: pointer;
+  margin: 0;
+}
+.svg.icon.tab {
+  width: 2.5vw;
+  height: 4.44vh;
+  transition: transform 0.3s ease;
+  margin: 8%;
+  cursor: pointer;
+}
+.svg.icon.tab:hover {
+  transform: scale(1.1);
+}
+#currentlySvg {
+  scale: 1.1;
+}
+@keyframes appear {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
 }

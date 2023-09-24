@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="a" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 107.64 115.5">
+  <defs>
+    <style>
+      .b {
+        fill: #fff;
+      }
+
+      .b, .c {
+        stroke: #000;
+        stroke-miterlimit: 10;
+        stroke-width: 9px;
+      }
+
+      .c {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <rect class="b" x="4.5" y="14.47" width="98.64" height="96.53" rx="10.58" ry="10.58"/>
+  <line class="c" x1="5.02" y1="39.13" x2="103.66" y2="39.13"/>
+  <rect class="b" x="75.36" y="7" width=".46" height="18" rx=".23" ry=".23"/>
+  <rect class="b" x="30.73" y="4.5" width=".49" height="18.89" rx=".23" ry=".23"/>
+  <g>
+    <g>
+      <circle cx="21.83" cy="56" r="6"/>
+      <circle cx="53.83" cy="56" r="6"/>
+      <circle cx="85.83" cy="56" r="6"/>
+    </g>
+    <g>
+      <circle cx="21.83" cy="75" r="6"/>
+      <circle cx="53.83" cy="75" r="6"/>
+      <circle cx="85.83" cy="75" r="6"/>
+    </g>
+    <g>
+      <circle cx="21.83" cy="94" r="6"/>
+      <circle cx="53.83" cy="94" r="6"/>
+      <circle cx="85.83" cy="94" r="6"/>
+    </g>
+  </g>
+</svg>

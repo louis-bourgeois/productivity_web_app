@@ -24,8 +24,6 @@ if (!prph || !menu || !viewsMenu || !dotsContainer || !blurFullScreen) {
   );
 }
 
-removeClassTo(viewsMenu, "open");
-
 function updateClock() {
   try {
     const time = new Date().toLocaleTimeString().slice(0, -6);
@@ -56,7 +54,6 @@ function add() {
   console.log("add appelée");
 }
 document.addEventListener("DOMContentLoaded", function () {
-  removeClassTo(viewsMenu);
   updateClock();
   setInterval(updateClock, 1000);
   prph.addEventListener("click", () => toggleClassTo(menu.classList, "open"));
@@ -83,7 +80,7 @@ dotsContainer.forEach(function (dotsContainerThis) {
       } else {
         toggleClassTo(navbar, "ontop");
       }
-      toggleClassTo(viewsMenu, ["", "open"]);
+      toggleClassTo(viewsMenu, "open");
       viewsMenuIsOpen = true;
       if (!addNewContainer) {
         console.warn("Element with ID 'add-new' not found.");

@@ -1,6 +1,6 @@
 const mainMenu = document.getElementById("menu");
 const prph = document.getElementById("prph");
-const mMenufName = document.getElementById("mMenufName");
+const mMenufName = document.getElementById("fName");
 
 function manipulateClass(method, element, property = "hidden") {
   const elements = Array.isArray(element) ? element : [element];
@@ -11,11 +11,9 @@ function manipulateClass(method, element, property = "hidden") {
     )
   );
 }
-
 prph.addEventListener("click", function () {
   toggleClassTo(mainMenu, ["", "open"]);
-  toggleClassTo(mMenufName);
-  toggleClassTo(prph, "scaleDown");
+  toggleClassTo([document.querySelector("#prph-container"), prph], "scaleDown");
 });
 
 document.addEventListener("DOMContentLoaded", function () {});

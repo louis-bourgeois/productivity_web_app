@@ -1,17 +1,19 @@
 <section id="navbar">
   <div id="menu" class="menu flex-v hidden">
-    <div id="infosRow" class="flex mMenuRow w100">
-      <div id="userInfos" class="flex-v">
-        <h4 class="neue bold hidden" id="mMenufName"><%=fName%></h4>
-        <% if (locals.isSubscribed) { if (isSubscribed) { %>
-        <span class="neue grey planOptions">Premium Plan</span>
+    <div id="mMenuNavRow" class="mMenuRow flex">
+      <div id="mMenuStatusInfos" class="flex-v">
+        <% if (locals.isSubscribed !== undefined && locals.fName !== undefined)
+        { %>
+        <h4 class="fName neue bold"><%= locals.fName %></h4>
+        <% if (locals.isSubscribed) { %>
+        <p class="plan neue">Premium Plan</p>
         <% } else { %>
-        <span class="neue grey planOptions">Free Plan</span>
-        <% }}%>
+        <p class="plan neue light">Free Plan</p>
+        <% } } %>
       </div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        id="settingsSvg"
+        class="settingsSvg svgtab"
         viewBox="0 0 33 34"
         fill="none"
       >
@@ -21,53 +23,279 @@
         />
       </svg>
     </div>
-
-    <div class="mMenuRow flex" id="layoutSettings">
-      <h6 class="settingsLibelle inter light">Layout / Pages</h6>
+    <div id="rest" class="flex-v">
+      <div id="tabsContainer" class="flex-v">
+        <div class="mMenuRow flex tab" id="mMenuCurrently">
+          <% if (locals.timeInfos && locals.currentRoute) { %>
+          <a href="<%= currentRoute === '/currently' ? '#' : './currently' %>">
+            <svg
+              id="currentlySvg"
+              class="svg icon tab"
+              data-name="Layer 1"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 103.01 119.3"
+              height="48"
+              width="48"
+            >
+              <defs>
+                <style>
+                  .b {
+                    fill: black;
+                    font-family: Poppins-Bold, Poppins;
+                    font-size: 50px;
+                  }
+                  .c {
+                    fill: #fff;
+                  }
+                  .c,
+                  .d {
+                    stroke: #000;
+                    stroke-miterlimit: 10;
+                    stroke-width: 9px;
+                  }
+                  .d {
+                    fill: none;
+                  }
+                </style>
+              </defs>
+              <rect
+                class="c"
+                x="4.5"
+                y="14"
+                width="94.01"
+                height="92"
+                rx="10.58"
+                ry="10.58"
+              />
+              <line class="d" x1="4.99" y1="37.5" x2="99" y2="37.5" />
+              <rect
+                class="c"
+                x="73.04"
+                y="4.5"
+                width=".46"
+                height="18"
+                rx=".23"
+                ry=".23"
+              />
+              <rect
+                class="c"
+                x="29.5"
+                y="4.5"
+                width=".46"
+                height="18"
+                rx=".23"
+                ry=".23"
+              />
+              <text class="b" transform="translate(23.85 89)">
+                <tspan x="0" y="0"><%= timeInfos[0].dayNumber %></tspan>
+              </text>
+            </svg>
+          </a>
+          <% } %> <% if (locals.currentRoute) { %> <% if (currentRoute ===
+          "/currently") { %>
+          <a href="#">
+            <span class="tab-text inter light" id="currentlyTextTab"
+              >Currently</span
+            >
+          </a>
+          <% } else { %>
+          <a href="./currently">
+            <span class="tab-text inter light" id="currentlyTextTab"
+              >Currently</span
+            >
+          </a>
+          <% } %> <% } %>
+        </div>
+        <div class="mMenuRow flex tab" id="mMenuInbox">
+          <% if (locals.currentRoute) { %>
+          <a href="<%= currentRoute === '/inbox' ? '#' : './inbox' %>">
+            <svg
+              id="inboxSvg"
+              data-name="Layer 1"
+              class="svg icon tab"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              viewBox="0 0 22 18"
+              height="48"
+              width="48"
+            >
+              <defs>
+                <style>
+                  .w {
+                    clip-path: url(#b);
+                  }
+                  .x,
+                  .u {
+                    fill: none;
+                  }
+                  .u {
+                    stroke: #000;
+                    stroke-linecap: round;
+                    stroke-linejoin: round;
+                    stroke-width: 2px;
+                  }
+                </style>
+                <clipPath id="b">
+                  <rect class="x" x="0" width="22" height="18" />
+                </clipPath>
+              </defs>
+              <g class="w">
+                <path
+                  class="u"
+                  d="M21,10h-6l-2,3h-4l-2-3H1M4.47,2.19L1,10v5c0,1.11,.89,2,2,2h16c1.11,0,2-.89,2-2v-5l-3.47-7.81c-.32-.73-1.04-1.19-1.83-1.19H6.3c-.79,0-1.51,.46-1.83,1.19h0Zm0,0"
+                />
+              </g>
+            </svg>
+          </a>
+          <% } %> <% if (locals.currentRoute) { %> <% if (currentRoute ===
+          "/inbox") { %>
+          <a href="#">
+            <span class="tab-text inter light" id="inboxTextTab">Inbox</span>
+          </a>
+          <% } else { %>
+          <a href="./inbox">
+            <span class="tab-text inter light" id="inboxTextTab">Inbox</span>
+          </a>
+          <% } %> <% } %>
+        </div>
+        <div class="mMenuRow flex tab" id="mMenuCalendar">
+          <% if (locals.currentRoute) { %>
+          <a href="<%= currentRoute === '/calendar' ? '#' : './calendar' %>">
+            <svg
+              id="calendarSvg"
+              class="svg icon tab"
+              width="48"
+              height="48"
+              data-name="Layer 1"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 107.64 115.5"
+            >
+              <defs>
+                <style>
+                  .k {
+                    fill: #fff;
+                  }
+                  .k,
+                  .e {
+                    stroke: #000;
+                    stroke-miterlimit: 10;
+                    stroke-width: 9px;
+                  }
+                  .e {
+                    fill: none;
+                  }
+                </style>
+              </defs>
+              <rect
+                class="k"
+                x="4.5"
+                y="14.47"
+                width="98.64"
+                height="96.53"
+                rx="10.58"
+                ry="10.58"
+              />
+              <line class="e" x1="5.02" y1="39.13" x2="103.66" y2="39.13" />
+              <rect
+                class="k"
+                x="75.36"
+                y="7"
+                width=".46"
+                height="18"
+                rx=".23"
+                ry=".23"
+              />
+              <rect
+                class="k"
+                x="30.73"
+                y="4.5"
+                width=".49"
+                height="18.89"
+                rx=".23"
+                ry=".23"
+              />
+              <g>
+                <g>
+                  <circle cx="25.2" cy="58" r="5.37" />
+                  <circle cx="53.83" cy="58" r="5.37" />
+                  <circle cx="82.46" cy="58" r="5.37" />
+                </g>
+                <g>
+                  <circle cx="25.2" cy="75" r="5.37" />
+                  <circle cx="53.83" cy="75" r="5.37" />
+                  <circle cx="82.46" cy="75" r="5.37" />
+                </g>
+                <g>
+                  <circle cx="25.2" cy="92" r="5.37" />
+                  <circle cx="53.83" cy="92" r="5.37" />
+                  <circle cx="82.46" cy="92" r="5.37" />
+                </g>
+              </g>
+            </svg>
+          </a>
+          <% } %> <% if (locals.currentRoute) { %> <% if (currentRoute ===
+          "/calendar") { %>
+          <a href="#">
+            <span class="tab-text inter light" id="calendarTextTab"
+              >Calendar</span
+            >
+          </a>
+          <% } else { %>
+          <a href="./calendar">
+            <span class="tab-text inter light" id="calendarTextTab"
+              >Calendar</span
+            >
+          </a>
+          <% } %> <% } %>
+        </div>
+        <div class="mMenuRow flex tab" id="mMenuAll">
+          <% if (locals.currentRoute) { %>
+          <a href="<%= currentRoute === '/all' ? '#' : './all' %>">
+            <svg
+              id="allSvg"
+              class="svg icon tab"
+              data-name="Layer 1"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 97.27 58.36"
+              height="48"
+              width="48"
+            >
+              <path
+                d="M4.86,0C2.18,0,0,2.18,0,4.86s2.18,4.86,4.86,4.86,4.86-2.18,4.86-4.86S7.55,0,4.86,0ZM24.32,9.73H92.41c2.69,0,4.86-2.18,4.86-4.86s-2.18-4.86-4.86-4.86H24.32c-2.69,0-4.86,2.18-4.86,4.86s2.18,4.86,4.86,4.86Zm0,14.59c-2.69,0-4.86,2.18-4.86,4.86s2.18,4.86,4.86,4.86,4.86-2.18,4.86-4.86-2.18-4.86-4.86-4.86Zm19.45,24.32c-2.69,0-4.86,2.18-4.86,4.86s2.18,4.86,4.86,4.86,4.86-2.18,4.86-4.86-2.18-4.86-4.86-4.86Zm48.64-24.32H43.77c-2.69,0-4.86,2.18-4.86,4.86s2.18,4.86,4.86,4.86h48.64c2.69,0,4.86-2.18,4.86-4.86s-2.18-4.86-4.86-4.86Zm0,24.32h-29.18c-2.69,0-4.86,2.18-4.86,4.86s2.18,4.86,4.86,4.86h29.18c2.69,0,4.86-2.18,4.86-4.86s-2.18-4.86-4.86-4.86Z"
+              />
+            </svg>
+          </a>
+          <% } %> <% if (locals.currentRoute) { %> <% if (currentRoute ===
+          "/all") { %>
+          <a href="#">
+            <span class="tab-text inter light" id="currentlyTextTab">All</span>
+          </a>
+          <% } else { %>
+          <a href="./all">
+            <span class="tab-text inter light" id="currentlyTextTab">All</span>
+          </a>
+          <% } %> <% } %>
+        </div>
+      </div>
+      <div id="dataListsContainer" class="flex-v">
+        <div class="mMenuRow flex tab"></div>
+        <div class="mMenuRow flex tab"></div>
+        <div class="mMenuRow flex tab"></div>
+      </div>
     </div>
-    <div class="mMenuLine"></div>
-    <div class="mMenuRow flex" id="NotesSettings">
-      <h6 class="settingsLibelle inter light">Notes</h6>
-    </div>
-    <div class="mMenuLine"></div>
-    <div class="mMenuRow flex" id="AppearenceSettings">
-      <h6 class="settingsLibelle inter light">Appearence</h6>
-    </div>
-    <div class="mMenuLine"></div>
-    <div class="mMenuRow flex" id="NotifSettings">
-      <h6 class="settingsLibelle inter light">Notifications / Reminders</h6>
-    </div>
-    <div class="mMenuLine"></div>
-    <div class="mMenuRow flex" id="CountrySettings">
-      <h6 class="settingsLibelle inter light">Languages / Regions</h6>
-    </div>
-    <div class="mMenuLine"></div>
-    <div class="mMenuRow flex" id="WorkspaceSettings">
-      <h6 class="settingsLibelle inter light">Workspace</h6>
-      <%# faire en sorte d'ajouter un s par rapport au nb de workspace/ note /
-      tasks etc %>
-    </div>
-    <div class="mMenuLine"></div>
-    <div class="mMenuRow flex" id="IntegrationsSettings">
-      <h6 class="settingsLibelle inter light">Integrations / Imports</h6>
-    </div>
-    <div class="mMenuLine"></div>
-    <div class="mMenuRow flex" id="ToolsSettings">
-      <h6 class="settingsLibelle inter light">Tools</h6>
-    </div>
-    <div class="mMenuLine"></div>
-    <div class="mMenuRow flex" id="exitSettings">
-      <h6 class="settingsLibelle inter light">Exit</h6>
-    </div>
+    <% if (locals.isSubscribed !== undefined) { if (locals.isSubscribed) { %>
+    <div class="premiumBtn"></div>
+    <%} else {} }%>
   </div>
   <nav>
     <ul id="nav-container" class="flex">
-      <li id="prph-container">
+      <li id="prph-container" draggable="false">
         <img
           id="prph"
           class="rCircleHigh shadow menu-toggle"
           src="assets/user_data/photo_profil_google.jpeg"
           alt="Your profile picture"
+          draggable="false"
         />
       </li>
       <li id="welcoming-text-container" class="flex center">

@@ -38,7 +38,16 @@ app.post("/register", (req, res) => {
 });
 
 // HERE: Sending data to 'currently.ejs'
-app.get("/currently", (req, res) => res.render("currently", getCurrentInfo()));
+app.get("/currently", (req, res) => {
+  const currentRoute = req.url;
+  const currentInfo = getCurrentInfo();
+  const data = {
+    ...currentInfo,
+    currentRoute: currentRoute,
+  };
+
+  res.render("currently", data);
+});
 
 // Start the server
 app.listen(PORT, () => {
@@ -63,7 +72,7 @@ function getCurrentInfo() {
     isSubscribed,
     fName,
     lName,
-    fullName: fName + "" + lName,
+    fullName: fName + " " + lName,
     timeInfos: week,
     moment,
     language,
