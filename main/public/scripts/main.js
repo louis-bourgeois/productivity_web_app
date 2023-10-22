@@ -1,7 +1,9 @@
 const mainMenu = document.getElementById("menu");
 const prph = document.getElementById("prph");
-const mMenufName = document.getElementById("fName");
-
+const prphContainer = document.querySelector("#prph-container");
+const searchIcon = document.getElementById("search");
+const bgMainMenu = document.getElementById("fs1");
+export const mainMenuIsOpen = { value: false };
 function manipulateClass(method, element, property = "hidden") {
   const elements = Array.isArray(element) ? element : [element];
   const properties = Array.isArray(property) ? property : [property];
@@ -11,12 +13,31 @@ function manipulateClass(method, element, property = "hidden") {
     )
   );
 }
-prph.addEventListener("click", function () {
-  toggleClassTo(mainMenu, ["", "open"]);
-  toggleClassTo([document.querySelector("#prph-container"), prph], "scaleDown");
-});
 
-document.addEventListener("DOMContentLoaded", function () {});
+export function toggleMainMenu() {
+  // Assume mainMenuIsOpen, mainMenu, and prph are defined elsewhere
+  if (!mainMenuIsOpen.value) {
+    toggleClassTo(bgMainMenu, "visHidden");
+    toggleClassTo(mainMenu, ["visHidden"]);
+    setTimeout(() => {
+      toggleClassTo(mainMenu, ["", "open"]);
+    }, 0); // Change "0" to 0
+
+    toggleClassTo([prphContainer, prph], "scaleDown");
+    mainMenuIsOpen.value = true;
+    return;
+  }
+  toggleClassTo(bgMainMenu, "visHidden");
+  toggleClassTo([document.querySelector("#prph-container"), prph], "scaleDown");
+  toggleClassTo(mainMenu, "open");
+  toggleClassTo(mainMenu, [""]);
+  setTimeout(() => {
+    toggleClassTo(mainMenu, ["visHidden"]);
+  }, 600);
+
+  mainMenuIsOpen.value = false;
+}
+bgMainMenu.addEventListener("click", toggleMainMenu);
 export function toggleClassTo(element, property) {
   manipulateClass("toggle", element, property);
 }
@@ -59,7 +80,11 @@ export function changeStyleOf(element, styleName, value) {
   });
 }
 const mMenuRows = document.querySelectorAll(".mMenuRow");
+prph.addEventListener("click", function () {
+  toggleMainMenu();
+});
 
+document.addEventListener("DOMContentLoaded", function () {});
 // Ajoute des écouteurs d'événements à chaque élément .mMenuRow
 mMenuRows.forEach((mMenuRow) => {
   mMenuRow.addEventListener("mousedown", function () {

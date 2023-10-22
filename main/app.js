@@ -48,7 +48,10 @@ app.get("/currently", (req, res) => {
 
   res.render("currently", data);
 });
-
+app.get("/inbox", (req, res) => {
+  const currentRoute = req.url;
+  res.render("inbox", []);
+});
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

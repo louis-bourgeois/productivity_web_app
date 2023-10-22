@@ -1,4 +1,10 @@
-import { addClassTo, removeClassTo, toggleClassTo } from "./main.js";
+import {
+  addClassTo,
+  mainMenuIsOpen,
+  removeClassTo,
+  toggleClassTo,
+  toggleMainMenu,
+} from "./main.js";
 const [prph, menu, viewsMenu, addNewContainer, addNewsvg, navbar] = [
   "prph",
   "menu",
@@ -10,7 +16,6 @@ const [prph, menu, viewsMenu, addNewContainer, addNewsvg, navbar] = [
 
 const dotsContainer = document.querySelectorAll(".dots-container");
 const clocks = [...document.querySelectorAll("p.clock")];
-
 const optionsArray = document.querySelectorAll(".options");
 const option = document.querySelectorAll(".option");
 const dropDownArrows = document.querySelectorAll(".dropdown.arrow");
@@ -22,6 +27,26 @@ if (!prph || !menu || !viewsMenu || !dotsContainer || !blurFullScreen) {
   console.error(
     "Essential DOM elements not found. Please check their IDs or classes."
   );
+}
+function openViewsMenu() {
+  toggleClassTo(viewsMenu, ["visHidden", "open"]);
+  viewsMenuIsOpen = true;
+}
+function closeViewsMenu() {
+  toggleClassTo(navbar, "ontop");
+  toggleClassTo(viewsMenu, "open");
+  setTimeout(() => {
+    toggleClassTo(viewsMenu, "visHidden");
+  }, 600);
+  toggleClassTo(blurFullScreen, "blur-background");
+  toggleClassTo([addNewContainer, addNewsvg], ["top-right-corner", "ontop"]);
+  viewsMenuIsOpen = false;
+}
+function closeAll() {
+  closeViewsMenu();
+  if (mainMenuIsOpen.value) {
+    toggleMainMenu();
+  }
 }
 
 function updateClock() {
@@ -37,6 +62,37 @@ function updateClock() {
   }
 }
 
+const updateCursor = () => {
+  // Récupère tous les éléments enfants de viewsMenu
+  const childElements = viewsMenu.querySelectorAll("*");
+
+  // Parcours chaque élément enfant
+  childElements.forEach((child) => {
+    // Si viewsMenu contient la classe 'open'
+    if (viewsMenu.classList.contains("open")) {
+      // Si l'élément enfant avait le curseur défini sur 'none', remets-le à 'pointer'
+      if (child.style.cursor === "none") {
+        child.style.cursor = "pointer";
+      }
+    } else {
+      // Si l'élément enfant avait le curseur défini sur 'pointer', change-le en 'none'
+      if (child.style.cursor === "pointer") {
+        child.style.cursor = "none";
+      }
+    }
+  });
+};
+
+// Appelle updateCursor une première fois pour initialiser
+updateCursor();
+
+// Écoute les changements de classe sur viewsMenu
+const observer = new MutationObserver(updateCursor);
+
+observer.observe(viewsMenu, {
+  attributes: true, // écoute les changements d'attributs
+  attributeFilter: ["class"], // écoute seulement les changements de l'attribut 'class'
+});
 function blurMenu() {
   try {
     if (!viewsMenu || !blurFullScreen) {
@@ -50,9 +106,7 @@ function blurMenu() {
     console.error("Error in blurMenu function:", error);
   }
 }
-function add() {
-  console.log("add appelée");
-}
+
 document.addEventListener("DOMContentLoaded", function () {
   updateClock();
   setInterval(updateClock, 1000);
@@ -60,7 +114,6 @@ document.addEventListener("DOMContentLoaded", function () {
   new Swiper(".swiper-container", { slidesPerView: "auto", spaceBetween: 1 });
   toggleClassTo(document.body);
 });
-
 const cardsContainer = document.getElementById("cards-container");
 if (cardsContainer) {
   cardsContainer.addEventListener("mousedown", (event) => {
@@ -71,21 +124,33 @@ if (cardsContainer) {
 } else {
   console.warn("Element with ID 'cards-container' not found.");
 }
-dotsContainer.forEach(function (dotsContainerThis) {
-  dotsContainerThis.addEventListener("click", function () {
+const warnIfNotFound = (element, msg) => {
+  if (!element) {
+    console.warn(msg);
+    return true;
+  }
+  return false;
+};
+
+dotsContainer.forEach((dotsContainerThis) => {
+  dotsContainerThis.addEventListener("click", () => {
     try {
-      if (!navbar) {
-        console.warn("Element with ID 'search-bar-container' not found.");
+      if (
+        warnIfNotFound(
+          navbar,
+          "Element with ID 'search-bar-container' not found."
+        )
+      )
         return;
-      } else {
-        toggleClassTo(navbar, "ontop");
-      }
-      toggleClassTo(viewsMenu, "open");
-      viewsMenuIsOpen = true;
-      if (!addNewContainer) {
-        console.warn("Element with ID 'add-new' not found.");
+
+      toggleClassTo(navbar, "ontop");
+      openViewsMenu();
+
+      if (
+        warnIfNotFound(addNewContainer, "Element with ID 'add-new' not found.")
+      )
         return;
-      }
+
       toggleClassTo(
         [addNewContainer, addNewsvg],
         ["top-right-corner", "ontop"]
@@ -100,14 +165,12 @@ dotsContainer.forEach(function (dotsContainerThis) {
 
 addNewContainer.addEventListener("click", function () {
   if (viewsMenuIsOpen) {
-    toggleClassTo(navbar, "ontop");
-    toggleClassTo(viewsMenu, "open");
-    viewsMenuIsOpen = false;
-    toggleClassTo(blurFullScreen, "blur-background");
-    toggleClassTo([addNewContainer, addNewsvg], ["top-right-corner", "ontop"]);
-  } else {
-    add();
+    closeViewsMenu();
   }
+});
+
+blurFullScreen.addEventListener("click", function () {
+  closeAll();
 });
 
 dropDownArrows.forEach((dropdownSelf, index) => {

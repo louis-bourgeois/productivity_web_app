@@ -1,5 +1,5 @@
 <section id="navbar">
-  <div id="menu" class="menu flex-v hidden">
+  <div id="menu" class="menu flex-v visHidden hidden">
     <div id="mMenuNavRow" class="mMenuRow flex">
       <div id="mMenuStatusInfos" class="flex-v">
         <% if (locals.isSubscribed !== undefined && locals.fName !== undefined)
@@ -86,29 +86,37 @@
                 rx=".23"
                 ry=".23"
               />
-              <text class="b" transform="translate(23.85 89)">
-                <tspan x="0" y="0"><%= timeInfos[0].dayNumber %></tspan>
+              <text
+                class="b"
+                x="80.5"
+                y="59.65"
+                transform="translate(23.85 89)"
+              >
+                <tspan
+                  x="<%= timeInfos[0].dayNumber.length < 2 ? '20' : '10' %>"
+                  y="0"
+                >
+                  <%= timeInfos[0].dayNumber %>
+                </tspan>
               </text>
             </svg>
           </a>
-          <% } %> <% if (locals.currentRoute) { %> <% if (currentRoute ===
-          "/currently") { %>
-          <a href="#">
-            <span class="tab-text inter light" id="currentlyTextTab"
+          <% } %> <% if (locals.currentRoute) { %>
+          <a href="<%= currentRoute === '/currently' ? '#' : './currently' %>">
+            <span
+              class="tab-text inter light <%= currentRoute === '/currently' ? 'blue' : '' %>"
+              id="currentlyTextTab"
               >Currently</span
             >
           </a>
-          <% } else { %>
-          <a href="./currently">
-            <span class="tab-text inter light" id="currentlyTextTab"
-              >Currently</span
-            >
-          </a>
-          <% } %> <% } %>
+          <% } %>
         </div>
         <div class="mMenuRow flex tab" id="mMenuInbox">
           <% if (locals.currentRoute) { %>
-          <a href="<%= currentRoute === '/inbox' ? '#' : './inbox' %>">
+          <a
+            href="<%= currentRoute === '/inbox' ? '#' : './inbox' %>"
+            class="<%= currentRoute === '/inbox' ? '' : 'blue'%>"
+          >
             <svg
               id="inboxSvg"
               data-name="Layer 1"
@@ -147,16 +155,15 @@
               </g>
             </svg>
           </a>
-          <% } %> <% if (locals.currentRoute) { %> <% if (currentRoute ===
-          "/inbox") { %>
-          <a href="#">
-            <span class="tab-text inter light" id="inboxTextTab">Inbox</span>
+          <% } %> <% if (locals.currentRoute) { %>
+          <a href="<%= currentRoute === '/inbox' ? '#' : './inbox' %>">
+            <span
+              class="tab-text inter light <%= currentRoute === '/inbox' ? 'blue' : '' %>"
+              id="inboxTextTab"
+              >Inbox</span
+            >
           </a>
-          <% } else { %>
-          <a href="./inbox">
-            <span class="tab-text inter light" id="inboxTextTab">Inbox</span>
-          </a>
-          <% } %> <% } %>
+          <% } %>
         </div>
         <div class="mMenuRow flex tab" id="mMenuCalendar">
           <% if (locals.currentRoute) { %>
@@ -268,17 +275,30 @@
           <% } %> <% if (locals.currentRoute) { %> <% if (currentRoute ===
           "/all") { %>
           <a href="#">
-            <span class="tab-text inter light" id="currentlyTextTab">All</span>
+            <span class="tab-text inter light" id="allTextTab">All</span>
           </a>
           <% } else { %>
           <a href="./all">
-            <span class="tab-text inter light" id="currentlyTextTab">All</span>
+            <span class="tab-text inter light" id="allTextTab">All</span>
           </a>
           <% } %> <% } %>
         </div>
       </div>
-      <div id="dataListsContainer" class="flex-v">
-        <div class="mMenuRow flex tab"></div>
+      <div id="dataListContainer" class="flex-v">
+        <div class="mMenuRow flex tab">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="36.7"
+            height="48"
+            viewBox="0 0 26 34"
+            fill="none"
+          >
+            <path
+              d="M18.6212 16.0559L13.191 10.3949C13.072 10.2698 12.9303 10.1705 12.7742 10.1027C12.6182 10.0349 12.4508 10 12.2817 10C12.1126 10 11.9453 10.0349 11.7892 10.1027C11.6331 10.1705 11.4915 10.2698 11.3724 10.3949C11.1339 10.6451 11 10.9835 11 11.3362C11 11.6889 11.1339 12.0273 11.3724 12.2775L15.9061 17.0039L11.3724 21.7302C11.1339 21.9804 11 22.3188 11 22.6715C11 23.0242 11.1339 23.3626 11.3724 23.6128C11.4921 23.7365 11.634 23.8344 11.79 23.9009C11.9461 23.9673 12.1132 24.001 12.2817 24C12.4503 24.001 12.6173 23.9673 12.7734 23.9009C12.9294 23.8344 13.0713 23.7365 13.191 23.6128L18.6212 17.9518C18.7412 17.8277 18.8365 17.68 18.9015 17.5173C18.9665 17.3546 19 17.1801 19 17.0039C19 16.8276 18.9665 16.6531 18.9015 16.4904C18.8365 16.3277 18.7412 16.18 18.6212 16.0559Z"
+              fill="white"
+            />
+          </svg>
+        </div>
         <div class="mMenuRow flex tab"></div>
         <div class="mMenuRow flex tab"></div>
       </div>
@@ -306,7 +326,7 @@
       <li id="icons-container" class="flex center">
         <div
           id="search-bar-container"
-          class="flex center rCircleHigh shadow border-blue"
+          class="flex center rCircleHigh shadow border-blue scaledUp"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
