@@ -2,8 +2,10 @@ import {
   addClassTo,
   mainMenuIsOpen,
   removeClassTo,
+  searchIsActive,
   toggleClassTo,
   toggleMainMenu,
+  toggleSearch,
 } from "./main.js";
 const [prph, menu, viewsMenu, addNewContainer, addNewsvg, navbar] = [
   "prph",
@@ -38,14 +40,19 @@ function closeViewsMenu() {
   setTimeout(() => {
     toggleClassTo(viewsMenu, "visHidden");
   }, 600);
-  toggleClassTo(blurFullScreen, "blur-background");
+  toggleClassTo(blurFullScreen, ["visHidden", "blur-background"]);
   toggleClassTo([addNewContainer, addNewsvg], ["top-right-corner", "ontop"]);
   viewsMenuIsOpen = false;
 }
 function closeAll() {
-  closeViewsMenu();
+  if (viewsMenuIsOpen) {
+    closeViewsMenu();
+  }
   if (mainMenuIsOpen.value) {
     toggleMainMenu();
+  }
+  if (searchIsActive.value) {
+    toggleSearch();
   }
 }
 
@@ -99,6 +106,7 @@ function blurMenu() {
       console.warn("ViewsMenu or blurFullScreen elements not found.");
       return;
     }
+    toggleClassTo(blurFullScreen, "visHidden");
     viewsMenu.classList.contains("open")
       ? addClassTo(blurFullScreen, "blur-background")
       : removeClassTo(blurFullScreen, "blur-background");
@@ -169,9 +177,7 @@ addNewContainer.addEventListener("click", function () {
   }
 });
 
-blurFullScreen.addEventListener("click", function () {
-  closeAll();
-});
+blurFullScreen.addEventListener("click", closeAll);
 
 dropDownArrows.forEach((dropdownSelf, index) => {
   dropdownSelf.addEventListener("click", () => {

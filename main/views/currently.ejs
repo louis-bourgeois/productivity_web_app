@@ -18,9 +18,11 @@
       const language = "<%= language %>";
     </script>
 
-    <div id="blur"></div>
-    <div id="fs1" class="fullscreen hidden visHidden"></div>
-    <%- include('partials/menu-views') %> <%- include('partials/header') %>
+    <div id="blur" class="fullscreen visHidden"></div>
+    <div id="fs1" class="visHidden"></div>
+
+    <%- include('partials/search_menu') %><%- include('partials/menu-views') %>
+    <%- include('partials/header') %>
 
     <section id="cards">
       <div id="cards-container" class="swiper-container">

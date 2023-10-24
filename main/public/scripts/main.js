@@ -2,8 +2,12 @@ const mainMenu = document.getElementById("menu");
 const prph = document.getElementById("prph");
 const prphContainer = document.querySelector("#prph-container");
 const searchIcon = document.getElementById("search");
+const searchIconContainer = document.getElementById("search-bar-container");
+const searchMenuContainer = document.getElementById("searchMenuContainer");
 const bgMainMenu = document.getElementById("fs1");
+const blurFullScreen = document.querySelector("#blur");
 export const mainMenuIsOpen = { value: false };
+export const searchIsActive = { value: false };
 function manipulateClass(method, element, property = "hidden") {
   const elements = Array.isArray(element) ? element : [element];
   const properties = Array.isArray(property) ? property : [property];
@@ -17,27 +21,52 @@ function manipulateClass(method, element, property = "hidden") {
 export function toggleMainMenu() {
   // Assume mainMenuIsOpen, mainMenu, and prph are defined elsewhere
   if (!mainMenuIsOpen.value) {
-    toggleClassTo(bgMainMenu, "visHidden");
+    if (
+      !blurFullScreen.classList.contains("blur-background") &&
+      !searchIsActive
+    ) {
+      toggleClassTo(blurFullScreen, "visHidden");
+    }
     toggleClassTo(mainMenu, ["visHidden"]);
     setTimeout(() => {
       toggleClassTo(mainMenu, ["", "open"]);
     }, 0); // Change "0" to 0
 
     toggleClassTo([prphContainer, prph], "scaleDown");
-    mainMenuIsOpen.value = true;
+    mainMenuIsOpen.value ^= 1;
     return;
   }
-  toggleClassTo(bgMainMenu, "visHidden");
+  if (!searchIsActive) {
+    addClassTo(blurFullScreen, "visHidden");
+  }
   toggleClassTo([document.querySelector("#prph-container"), prph], "scaleDown");
   toggleClassTo(mainMenu, "open");
   toggleClassTo(mainMenu, [""]);
   setTimeout(() => {
     toggleClassTo(mainMenu, ["visHidden"]);
   }, 600);
-
-  mainMenuIsOpen.value = false;
+  mainMenuIsOpen.value ^= 1;
 }
-bgMainMenu.addEventListener("click", toggleMainMenu);
+export function toggleSearch() {
+  if (!searchIsActive.value) {
+    toggleClassTo(searchMenuContainer, ["visHidden", ""]);
+    if (!blurFullScreen.classList.contains("blur-background")) {
+      toggleClassTo(blurFullScreen, "visHidden");
+    }
+    searchIsActive.value ^= 1; // ici j'inverse la value de searchIsActive avec un opérateur XOR, ça équivaut à faire: !
+    return;
+  }
+  if (!blurFullScreen.classList.contains("blur-background")) {
+    addClassTo(blurFullScreen, "visHidden");
+  }
+  toggleClassTo(searchMenuContainer, "");
+  setTimeout(() => {
+    toggleClassTo(searchMenuContainer, "visHidden");
+  }, 700);
+
+  searchIsActive.value ^= 1;
+}
+
 export function toggleClassTo(element, property) {
   manipulateClass("toggle", element, property);
 }
@@ -79,10 +108,12 @@ export function changeStyleOf(element, styleName, value) {
     });
   });
 }
+export function toggleSearchBar() {}
 const mMenuRows = document.querySelectorAll(".mMenuRow");
 prph.addEventListener("click", function () {
   toggleMainMenu();
 });
+searchIcon.addEventListener("click", toggleSearchBar);
 
 document.addEventListener("DOMContentLoaded", function () {});
 // Ajoute des écouteurs d'événements à chaque élément .mMenuRow
@@ -108,6 +139,25 @@ mMenuRows.forEach((mMenuRow) => {
       removeClassTo(child, "blue");
     });
   });
+});
+searchIconContainer.addEventListener("click", toggleSearch);
+
+document.addEventListener("keydown", function (e) {
+  if ((e.ctrlKey && e.key === "k") | (e.key === "/")) {
+    e.preventDefault();
+    toggleSearch();
+  }
+  if (e.key === "Escape") {
+    if (mainMenuIsOpen.value) {
+      toggleMainMenu();
+    }
+    if (searchIsActive.value) {
+      toggleSearch();
+    }
+  }
+  if (e.altKey) {
+    e.preventDefault();
+  }
 });
 
 setInterval(defineArrowSize, 1000);

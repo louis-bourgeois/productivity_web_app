@@ -63,7 +63,7 @@
 }
 .row {
   width: 90%;
-  margin: 2vw 2vw;
+  margin: 3.556vh 3.556vh;
   justify-content: space-between !important;
 }
 .selectedOption {
@@ -116,7 +116,7 @@
   border: 1px solid var(--black);
   height: 4vh;
   cursor: pointer;
-  border-radius: 10px;
+  border-radius: 0.521vw;
   justify-content: space-between;
 }
 
@@ -128,7 +128,6 @@
   transition: transform 0.25s ease-in-out;
 }
 
-/* Additional styles for options and dropdowns */
 .options {
   position: absolute;
   background-color: white;
@@ -136,6 +135,7 @@
   border-radius: 10px;
   transition: all 0.1s ease-in-out;
   width: 35%;
+  height: 8vh;
   border: 1px solid rgba(0, 0, 0, 0.12);
   transition: opacity 0.5s ease-in-out;
 }

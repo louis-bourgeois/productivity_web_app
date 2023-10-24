@@ -123,6 +123,7 @@ a:active {
   position: absolute;
   width: 100vw;
   height: 100vh;
+  z-index: 600;
 }
 .flex {
   display: flex;
@@ -168,12 +169,86 @@ a:active {
   opacity: 100%;
 }
 #fs1 {
-  z-index: 1400;
+  z-index: 70;
 }
 #menu.hidden * {
   opacity: 0%;
 }
-
+#searchMenuContainer {
+  width: 34vw;
+  height: 34vh;
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #dae1e9;
+  background: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 34px 38px rgba(0, 0, 0, 0.2);
+  border-radius: 14px;
+  z-index: 500000;
+  justify-content: start;
+  transition: opacity 0.4s ease-in-out;
+}
+#tagRow {
+  height: 3vw;
+  width: 34vw;
+}
+.inputLine {
+  width: 100%;
+}
+.inputLine > input[type="text"] {
+  caret-color: #007aff;
+}
+.inputLine > input[type="text"],
+.inputLine > textarea {
+  outline: none;
+  background-color: rgba(0, 0, 0, 0);
+  width: 90%;
+  margin-bottom: 1vh;
+  height: 4.6vh;
+  color: black;
+  font-family: Inter;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border: none;
+  padding-left: 0.75vw;
+}
+.inputLine > input[type="text"]::placeholder {
+  all: unset;
+  color: rgba(168, 168, 168, 0.54);
+  font-family: Neue Haas Grotesk Display Pro;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border: none;
+}
+.tag {
+  margin-left: 1vw;
+  margin-right: 1vw;
+  height: 3.5vh;
+  width: 5vw;
+  border-radius: 11px;
+  background: #f0f0f0;
+  box-shadow: 0px, 0px, 4px 15px rgba(0, 0, 0, 0.3);
+}
+.searchMenuLine {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.36);
+}
+.tag > span {
+  color: #000;
+  text-align: center;
+  font-family: Neue Haas Grotesk Display Pro;
+  font-size: 1vw;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
 .text-shadow {
   text-shadow: 4px 4px 4px rgb(0, 0, 0, 0.25);
 }
@@ -202,7 +277,7 @@ a:active {
   background-color: var(--main-color);
   filter: drop-shadow(0px 4px 44px rgba(0, 0, 0, 0.25));
   opacity: 0%;
-  border-radius: 45px;
+  border-radius: 2.344vw;
 }
 #menu {
   border-radius: 3.125vw;
@@ -246,12 +321,18 @@ a:active {
   height: 5vw;
   margin: 0;
   cursor: pointer;
+  display: flex;
+  justify-content: end;
+  transition: transform 0.25s ease-in;
+  z-index: 6100;
 }
-#search-bar-container.scaledUp {
-  width: 10vw !important; 
+#search-bar-container:active {
+  transform: scale(0.85);
 }
 #search {
   fill: var(--opposite-color);
+  height: 3vw;
+  width: auto;
 }
 #add-container {
   width: 8.2vw;
@@ -259,6 +340,10 @@ a:active {
 }
 #add-container svg {
   fill: var(--blue-main);
+}
+.top-right-corner {
+  transform: rotate(22.5deg);
+  transition: all 0.5s ease;
 }
 #swiper-slide,
 #swiper-slide-active {
@@ -271,6 +356,7 @@ a:active {
 .visHidden {
   visibility: hidden;
 }
+
 .blur-background {
   backdrop-filter: blur(10px);
   position: absolute;
@@ -280,6 +366,7 @@ a:active {
   left: 0;
   z-index: 2;
 }
+
 .fName {
   font-size: 2vw;
 }
