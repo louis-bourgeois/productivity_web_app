@@ -26,18 +26,21 @@ const DAYS = getDaysByLanguage(language);
 
 // Express setup
 const app = express();
+
 app.use(express.static("public"));
+app.use(express.json()); // = 1h en moins fait gaffe la prochaine fois
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
 // Routes
 app.get("/", (req, res) => res.render("home"));
+
 app.get("/register", (req, res) => res.render("register"));
+
 app.post("/register", (req, res) => {
   // TODO: Implement logic here
 });
 
-// HERE: Sending data to 'currently.ejs'
 app.get("/currently", (req, res) => {
   const currentRoute = req.url;
   const currentInfo = getCurrentInfo();
@@ -48,6 +51,20 @@ app.get("/currently", (req, res) => {
 
   res.render("currently", data);
 });
+
+app.post("/currently/setViewsOptions", (req, res) => {
+  console.log("Received body:", req.body);
+  const viewsMenuChosenOptions = req.body.viewsMenuChosenOptions;
+  if (viewsMenuChosenOptions) {
+    console.log("Data received:", viewsMenuChosenOptions);
+    // Fais quelque chose avec cette data
+    res.status(200).send("Data received");
+  } else {
+    console.log("Data is undefined.");
+    res.status(400).send("Bad Request");
+  }
+});
+
 app.get("/inbox", (req, res) => {
   const currentRoute = req.url;
   res.render("inbox", []);

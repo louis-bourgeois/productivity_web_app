@@ -55,6 +55,62 @@ function closeAll() {
     toggleSearch();
   }
 }
+async function sendToServer(data, url) {
+  console.log(
+    "Sending data: ",
+    JSON.stringify({ viewsMenuChosenOptions: data })
+  );
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ viewsMenuChosenOptions: data }),
+    });
+
+    if (response.ok) {
+      const responseData = await response.text();
+      console.log(
+        "Data sent successfully. Received data:",
+        JSON.stringify(responseData)
+      );
+    } else {
+      console.log("Network response was not ok.");
+    }
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+  }
+}
+function displayMenuViewsSelection(selected) {
+  console.log("displayMenu start");
+
+  const chosenOptionText = selected.innerText;
+  console.log("chosen option good");
+
+  // Always check if elements exist to avoid null errors
+
+  const parentOptions = selected.parentElement;
+  if (!parentOptions) return;
+  console.log("parentOption good");
+
+  const grandParent = parentOptions.parentElement;
+  if (!grandParent) return;
+  console.log("grandparentOption good " + grandParent.innerHTML);
+
+  const targetSpan = grandParent.querySelector("span");
+  if (!targetSpan) return;
+  targetSpan.innerText = chosenOptionText;
+  console.log("target Span good");
+
+  const h4Element = grandParent.parentElement.parentElement.querySelector("h4");
+  if (!h4Element) return;
+  console.log("h4 good " + h4Element.innerText);
+
+  const payload = { [h4Element.innerText]: chosenOptionText };
+  console.log("payload created");
+
+  sendToServer(payload, "/currently/setViewsOptions");
+  console.log("payload sent : ", payload);
+}
 
 function updateClock() {
   try {
@@ -202,8 +258,8 @@ dropDownArrows.forEach((dropdownSelf, index) => {
 option.forEach((option_this) => {
   option_this.addEventListener("click", () => {
     try {
+      displayMenuViewsSelection(option_this);
       toggleClassTo(option_this.parentElement);
-      submitDotsMenuChoices();
     } catch (error) {
       console.error("Error in option click event listener:", error);
     }
