@@ -101,7 +101,9 @@ function displayMenuViewsSelection(selected) {
   targetSpan.innerText = chosenOptionText;
   console.log("target Span good");
 
-  const h4Element = grandParent.parentElement.parentElement.querySelector("h4");
+  const parent = selected.closest(".row.flex");
+  const h4Element = parent.querySelector("h4");
+  console.log(h4Element);
   if (!h4Element) return;
   console.log("h4 good " + h4Element.innerText);
 
