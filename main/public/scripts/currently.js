@@ -3,7 +3,9 @@ import {
   mainMenuIsOpen,
   removeClassTo,
   searchIsActive,
+  sendToServer,
   toggleClassTo,
+  toggleClassesOnElements,
   toggleMainMenu,
   toggleSearch,
 } from "./main.js";
@@ -22,7 +24,7 @@ const optionsArray = document.querySelectorAll(".options");
 const option = document.querySelectorAll(".option");
 const dropDownArrows = document.querySelectorAll(".dropdown.arrow");
 const blurFullScreen = document.querySelector("#blur");
-let viewsMenuIsOpen = false;
+export const viewsMenuIsOpen = { value: false };
 
 // Check if essential elements are found
 if (!prph || !menu || !viewsMenu || !dotsContainer || !blurFullScreen) {
@@ -32,20 +34,47 @@ if (!prph || !menu || !viewsMenu || !dotsContainer || !blurFullScreen) {
 }
 function openViewsMenu() {
   toggleClassTo(viewsMenu, ["visHidden", "open"]);
-  viewsMenuIsOpen = true;
+  viewsMenuIsOpen.value = true;
 }
+
 function closeViewsMenu() {
-  toggleClassTo(navbar, "ontop");
-  toggleClassTo(viewsMenu, "open");
+  toggleClassesOnElements([navbar, viewsMenu], ["ontop", "open"]);
   setTimeout(() => {
     toggleClassTo(viewsMenu, "visHidden");
   }, 600);
-  toggleClassTo(blurFullScreen, ["visHidden", "blur-background"]);
-  toggleClassTo([addNewContainer, addNewsvg], ["top-right-corner", "ontop"]);
-  viewsMenuIsOpen = false;
+
+  if (!searchIsActive.value && !mainMenuIsOpen.value) {
+    toggleClassTo(blurFullScreen, "visHidden");
+  }
+
+  optionsArray.forEach((options) => {
+    let arrow = options.previousElementSibling;
+    removeClassTo(arrow.querySelector("svg"), "returned");
+    addClassTo(options, ["", "visHidden"]);
+  });
+
+  // Remet les éléments addNewContainer et addNewsvg dans leur état initial
+  toggleClassTo(blurFullScreen, "blur-background");
+  removeClassTo([addNewContainer, addNewsvg], ["top-right-corner", "ontop"]);
+  viewsMenuIsOpen.value = false;
+}
+
+function blurMenu() {
+  try {
+    if (!viewsMenu || !blurFullScreen) {
+      console.warn("ViewsMenu or blurFullScreen elements not found.");
+      return;
+    }
+    toggleClassTo(blurFullScreen, "visHidden");
+    viewsMenu.classList.contains("open")
+      ? addClassTo(blurFullScreen, "blur-background")
+      : removeClassTo(blurFullScreen, "blur-background");
+  } catch (error) {
+    console.error("Error in blurMenu function:", error);
+  }
 }
 function closeAll() {
-  if (viewsMenuIsOpen) {
+  if (viewsMenuIsOpen.value) {
     closeViewsMenu();
   }
   if (mainMenuIsOpen.value) {
@@ -55,30 +84,22 @@ function closeAll() {
     toggleSearch();
   }
 }
-async function sendToServer(data, url) {
-  console.log(
-    "Sending data: ",
-    JSON.stringify({ viewsMenuChosenOptions: data })
-  );
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ viewsMenuChosenOptions: data }),
-    });
 
-    if (response.ok) {
-      const responseData = await response.text();
-      console.log(
-        "Data sent successfully. Received data:",
-        JSON.stringify(responseData)
-      );
-    } else {
-      console.log("Network response was not ok.");
+function toggleDropDownMenu(options, arrow) {
+  try {
+    if (arrow.classList.contains("returned")) {
+      toggleClassTo(arrow, "returned");
+      toggleClassTo(options);
+      setTimeout(() => toggleClassTo(options, "visHidden"), 500);
+      return;
     }
+    toggleClassTo(options, "visHidden");
+    toggleClassTo(options);
+    toggleClassTo(arrow, "returned");
   } catch (error) {
-    console.error("There was a problem with the fetch operation:", error);
+    console.error(`Error in function: toggleDropDownMenu : ${error}`);
   }
+  return;
 }
 function displayMenuViewsSelection(selected) {
   console.log("displayMenu start");
@@ -101,17 +122,16 @@ function displayMenuViewsSelection(selected) {
   targetSpan.innerText = chosenOptionText;
   console.log("target Span good");
 
-  const parent = selected.closest(".row.flex");
+  const parent = selected.closest(".viewsRow.flex");
   const h4Element = parent.querySelector("h4");
   console.log(h4Element);
   if (!h4Element) return;
   console.log("h4 good " + h4Element.innerText);
 
-  const payload = { [h4Element.innerText]: chosenOptionText };
-  console.log("payload created");
-
-  sendToServer(payload, "/currently/setViewsOptions");
-  console.log("payload sent : ", payload);
+  sendToServer(
+    JSON.stringify({ [h4Element.innerText]: chosenOptionText }),
+    "/currently/setViewsOptions"
+  );
 }
 
 function updateClock() {
@@ -127,56 +147,9 @@ function updateClock() {
   }
 }
 
-const updateCursor = () => {
-  // Récupère tous les éléments enfants de viewsMenu
-  const childElements = viewsMenu.querySelectorAll("*");
-
-  // Parcours chaque élément enfant
-  childElements.forEach((child) => {
-    // Si viewsMenu contient la classe 'open'
-    if (viewsMenu.classList.contains("open")) {
-      // Si l'élément enfant avait le curseur défini sur 'none', remets-le à 'pointer'
-      if (child.style.cursor === "none") {
-        child.style.cursor = "pointer";
-      }
-    } else {
-      // Si l'élément enfant avait le curseur défini sur 'pointer', change-le en 'none'
-      if (child.style.cursor === "pointer") {
-        child.style.cursor = "none";
-      }
-    }
-  });
-};
-
-// Appelle updateCursor une première fois pour initialiser
-updateCursor();
-
-// Écoute les changements de classe sur viewsMenu
-const observer = new MutationObserver(updateCursor);
-
-observer.observe(viewsMenu, {
-  attributes: true, // écoute les changements d'attributs
-  attributeFilter: ["class"], // écoute seulement les changements de l'attribut 'class'
-});
-function blurMenu() {
-  try {
-    if (!viewsMenu || !blurFullScreen) {
-      console.warn("ViewsMenu or blurFullScreen elements not found.");
-      return;
-    }
-    toggleClassTo(blurFullScreen, "visHidden");
-    viewsMenu.classList.contains("open")
-      ? addClassTo(blurFullScreen, "blur-background")
-      : removeClassTo(blurFullScreen, "blur-background");
-  } catch (error) {
-    console.error("Error in blurMenu function:", error);
-  }
-}
-
 document.addEventListener("DOMContentLoaded", function () {
   updateClock();
   setInterval(updateClock, 1000);
-  prph.addEventListener("click", () => toggleClassTo(menu.classList, "open"));
   new Swiper(".swiper-container", { slidesPerView: "auto", spaceBetween: 1 });
   toggleClassTo(document.body);
 });
@@ -230,7 +203,7 @@ dotsContainer.forEach((dotsContainerThis) => {
 });
 
 addNewContainer.addEventListener("click", function () {
-  if (viewsMenuIsOpen) {
+  if (viewsMenuIsOpen.value) {
     closeViewsMenu();
   }
 });
@@ -239,31 +212,27 @@ blurFullScreen.addEventListener("click", closeAll);
 
 dropDownArrows.forEach((dropdownSelf, index) => {
   dropdownSelf.addEventListener("click", () => {
-    try {
-      if (!optionsArray[index]) {
-        console.warn(
-          `No corresponding options element found for dropdown at index ${index}`
-        );
-        return;
-      }
-      toggleClassTo(optionsArray[index]);
-      toggleClassTo(dropdownSelf, "returned");
-    } catch (error) {
-      console.error(
-        `Error in dropdown click event listener at index ${index}:`,
-        error
-      );
-    }
+    toggleDropDownMenu(optionsArray[index], dropdownSelf);
   });
 });
 
+let isClickable = true; // Variable globale pour le contrôle du click
+
 option.forEach((option_this) => {
   option_this.addEventListener("click", () => {
-    try {
-      displayMenuViewsSelection(option_this);
-      toggleClassTo(option_this.parentElement);
-    } catch (error) {
-      console.error("Error in option click event listener:", error);
-    }
+    if (!isClickable) return;
+
+    isClickable = false; // Désactive le clic
+
+    const arrow =
+      option_this.parentElement.previousElementSibling.querySelector("svg");
+    const optionsArray = option_this.parentElement;
+    toggleDropDownMenu(optionsArray, arrow);
+    console.log("eeeee" + option_this);
+    displayMenuViewsSelection(option_this);
+
+    setTimeout(() => {
+      isClickable = true; // Réactive le clic après 1 seconde
+    }, 1000);
   });
 });

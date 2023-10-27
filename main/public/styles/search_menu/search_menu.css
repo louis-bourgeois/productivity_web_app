@@ -1,0 +1,71 @@
+#tagRow {
+  height: 3vw;
+  width: 34vw;
+}
+
+.inputLine {
+  width: 100%;
+}
+.searchMenuLine {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.36);
+}
+.inputLine > input[type="text"] {
+  caret-color: #007aff;
+  color: var(--opposite-color);
+}
+.inputLine > input[type="text"],
+.inputLine > textarea {
+  outline: none;
+  background-color: rgba(0, 0, 0, 0);
+  width: 90%;
+  margin-bottom: 1vh;
+  height: 4.6vh;
+  color: var(--opposite-color);
+  font-family: Poppins;
+  font-size: 1vw;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border: none;
+  padding-left: 0.75vw;
+  transition: all 0.5s ease-in;
+}
+.inputLine > input[type="text"]::placeholder {
+  all: unset;
+  color: rgba(168, 168, 168, 0.54);
+  font-family: Neue Haas Grotesk Display Pro;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border: none;
+}
+.inputLine > input[type="text"].dark-mode::placeholder {
+  color: var(--opposite-color);
+}
+#search-bar-container {
+  width: 5vw;
+  height: 5vw;
+  margin: 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: end;
+  transition: transform 0.25s ease-in;
+  z-index: 6100;
+}
+#search-bar-container.dark-mode {
+  background-color: var(--black-assets);
+}
+#search-bar-container:active {
+  transform: scale(0.85);
+}
+#search {
+  fill: var(--opposite-color);
+  height: 3vw;
+  width: auto;
+}
+#search.dark-mode {
+  fill: var(--green);
+}

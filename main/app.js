@@ -1,7 +1,7 @@
 import express from "express";
 
 // Configuration
-const PORT = 3000;
+const PORT = 3001;
 const language = "en";
 const fName = "Louis";
 const lName = "Bourgeois";
@@ -15,7 +15,7 @@ function getDaysByLanguage(language) {
         "Monday",
         "Tuesday",
         "Wednesday",
-        "Thursday",
+        // "Thursday"
         "Friday",
         "Saturday",
       ]
@@ -51,10 +51,20 @@ app.get("/currently", (req, res) => {
 
   res.render("currently", data);
 });
+app.post("/currently/searchInput", (req, res) => {
+  console.log(`searchInputBody: ${JSON.stringify(req.body)}`);
+  const data = req.body;
+  if (data) {
+    console.log("Data received:", data);
+    res.status(200).send("Data received");
+  } else {
+    console.log("Data is undefined.");
+    res.status(400).send("Bad Request");
+  }
+});
 
 app.post("/currently/setViewsOptions", (req, res) => {
-  console.log("Received body:", req.body);
-  const viewsMenuChosenOptions = req.body.viewsMenuChosenOptions;
+  const viewsMenuChosenOptions = req.body;
   if (viewsMenuChosenOptions) {
     console.log("Data received:", viewsMenuChosenOptions);
     // Fais quelque chose avec cette data

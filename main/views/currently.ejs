@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Currently</title>
     <link rel="stylesheet" href="styles/main.css" />
-    <link rel="stylesheet" href="styles/currently.css" />
+    <link rel="stylesheet" href="styles/pages/currently.css" />
+    <link rel="stylesheet" href="styles/views_menu/viewsMenu.css" />
+    <link rel="stylesheet" href="styles/main_menu/main_menu.css" />
+    <link rel="stylesheet" href="styles/navbar/nav.css" />
+    <link rel="stylesheet" href="styles/search_menu/search_menu.css" />
     <script defer type="module" src="scripts/main.js"></script>
     <script defer type="module" src="scripts/currently.js"></script>
     <link
@@ -21,8 +25,8 @@
     <div id="blur" class="fullscreen visHidden"></div>
     <div id="fs1" class="visHidden"></div>
 
-    <%- include('partials/search_menu') %><%- include('partials/menu-views') %>
-    <%- include('partials/header') %>
+    <%- include('partials/search_menu') %><%- include('partials/menu-views')
+    %><%- include('partials/add_new') %> <%- include('partials/header') %>
 
     <section id="cards">
       <div id="cards-container" class="swiper-container">

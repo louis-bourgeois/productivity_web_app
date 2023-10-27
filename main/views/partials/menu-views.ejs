@@ -1,7 +1,7 @@
 <div id="menu-views" class="menu flex center blur visHidden">
   <div class="dropdown-menu flex-v center">
     <!-- Views Selection -->
-    <div id="views-selection" class="row flex">
+    <div id="views-selection" class="viewsRow flex">
       <h4 id="views-libelle" class="left-libelle inter extrabold text-shadow">
         <%= language === 'en' ? 'View' : 'Vue' %>
       </h4>
@@ -22,7 +22,7 @@
             ></path>
           </svg>
         </div>
-        <div class="options hidden" id="viewsOption-1">
+        <div class="options hidden visHidden" id="viewsOption-1">
           <div class="option">
             <span class="inter light text-shadow option-displayed"
               >Default</span
@@ -38,7 +38,7 @@
     </div>
 
     <!-- Sort By -->
-    <div id="Sort-By" class="row flex">
+    <div id="Sort-By" class="viewsRow flex">
       <h4 id="Sort-By-libelle" class="left-libelle inter extrabold text-shadow">
         Sort By
       </h4>
@@ -57,7 +57,7 @@
             ></path>
           </svg>
         </div>
-        <div class="options hidden" id="viewsOption-2">
+        <div class="options hidden visHidden" id="viewsOption-2">
           <div class="option">
             <span class="inter light text-shadow option-displayed"
               >Importance</span
@@ -73,7 +73,7 @@
     </div>
 
     <!-- Only Show -->
-    <div id="only-show" class="row flex">
+    <div id="only-show" class="viewsRow flex">
       <h4
         id="only-show-libelle"
         class="left-libelle inter extrabold text-shadow"
@@ -95,7 +95,7 @@
             ></path>
           </svg>
         </div>
-        <div class="options hidden" id="viewsOption-3">
+        <div class="options hidden visHidden" id="viewsOption-3">
           <div class="option">
             <span class="inter light text-shadow option-displayed">To do</span>
           </div>

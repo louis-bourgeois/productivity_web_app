@@ -1,0 +1,24 @@
+#prph {
+  cursor: pointer;
+  height: 5vw;
+}
+#prph-container {
+  height: 5vw;
+  z-index: 1601;
+  margin-left: 0.68vw;
+}
+#prph,
+#prph-container {
+  transition: all 0.8s ease;
+}
+#nav-container h1 {
+  text-align: center;
+  text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.46);
+  font-size: 4.167vw;
+  color: var(--opposite-color);
+}
+
+#nav-container
+  *:not(span, #prph, #add-container, #menu, .menuContainer, #prph-container) {
+  margin: 0 clamp(10px, 1.3vw, 3vw);
+}

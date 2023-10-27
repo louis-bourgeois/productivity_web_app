@@ -1,0 +1,289 @@
+<div id="menu" class="menu flex-v visHidden hidden">
+  <div id="mMenuNavRow" class="mMenuRow flex">
+    <div id="mMenuStatusInfos" class="flex-v">
+      <% if (locals.isSubscribed !== undefined && locals.fName !== undefined) {
+      %>
+      <h4 class="fName neue bold"><%= locals.fName %></h4>
+      <% if (locals.isSubscribed) { %>
+      <p class="plan neue">Premium Plan</p>
+      <% } else { %>
+      <p class="plan neue light">Free Plan</p>
+      <% } } %>
+    </div>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="settingsSvg svgtab"
+      viewBox="0 0 33 34"
+      fill="none"
+    >
+      <path
+        d="M4.32108 18.5714L4.35624 18.8526L4.13294 19.0272L0.618095 21.7758C0.617857 21.776 0.61762 21.7762 0.617384 21.7764C0.504967 21.8657 0.457817 22.042 0.544863 22.2062L3.87449 27.9665L3.87463 27.9664L3.88056 27.9773C3.95678 28.117 4.12028 28.1778 4.27442 28.1184C4.27497 28.1182 4.27552 28.118 4.27608 28.1178L8.42194 26.4527L8.68312 26.3478L8.90828 26.5167C9.74909 27.1473 10.6456 27.6903 11.6146 28.0874L11.8793 28.1959L11.9199 28.4791L12.5532 32.8957L12.5533 32.8957L12.5544 32.9047C12.5715 33.0417 12.6974 33.1667 12.8749 33.1667H19.5416C19.7192 33.1667 19.845 33.0417 19.8621 32.9047L19.8621 32.9047L19.8633 32.8957L20.4967 28.4791L20.5373 28.1959L20.802 28.0874C21.7745 27.6888 22.6694 27.162 23.5034 26.5204L23.7297 26.3463L23.9946 26.4527L28.1352 28.1156C28.2955 28.1706 28.4687 28.1006 28.536 27.9773L28.5359 27.9772L28.5421 27.9665L31.8717 22.2062C31.9588 22.042 31.9116 21.8656 31.7991 21.7763C31.7989 21.7761 31.7987 21.776 31.7985 21.7758L28.2836 19.0272L28.0603 18.8526L28.0955 18.5714C28.1609 18.0483 28.2083 17.521 28.2083 17C28.2083 16.4791 28.1609 15.9518 28.0955 15.4287L28.0603 15.1475L28.2836 14.9728L31.7985 12.2243C31.7987 12.2241 31.7989 12.2239 31.7991 12.2237C31.9265 12.1227 31.9622 11.9472 31.8778 11.8044L31.8754 11.8003L28.5421 6.0336L28.5419 6.03367L28.536 6.0228C28.4598 5.88305 28.2963 5.82225 28.1421 5.88169L23.9946 7.54736L23.7334 7.65225L23.5083 7.48337C22.6675 6.85276 21.7709 6.3098 20.802 5.91269L20.5373 5.8042L20.4967 5.52101L19.8633 1.10435L19.8633 1.10436L19.8621 1.09539C19.845 0.958377 19.7192 0.833374 19.5416 0.833374H12.8749C12.6974 0.833374 12.5715 0.958377 12.5544 1.09539L12.5545 1.0954L12.5532 1.10435L11.9199 5.52101L11.8793 5.8042L11.6146 5.91269C10.6421 6.31124 9.74718 6.83811 8.91313 7.47969L8.68685 7.65375L8.42194 7.54736L4.28129 5.88444C4.121 5.82948 3.9478 5.89952 3.88056 6.0228L3.88069 6.02287L3.87449 6.0336L0.544863 11.7939C0.457817 11.9581 0.504967 12.1344 0.617384 12.2237C0.61762 12.2239 0.617857 12.2241 0.618095 12.2243L4.13294 14.9728L4.35624 15.1475L4.32108 15.4287C4.25563 15.9523 4.20827 16.4627 4.20827 17C4.20827 17.5374 4.25563 18.0478 4.32108 18.5714ZM22.5416 17C22.5416 20.4928 19.7011 23.3334 16.2083 23.3334C12.7155 23.3334 9.87494 20.4928 9.87494 17C9.87494 13.5072 12.7155 10.6667 16.2083 10.6667C19.7011 10.6667 22.5416 13.5072 22.5416 17Z"
+        id="settingsPath"
+      />
+    </svg>
+  </div>
+  <div id="rest" class="flex-v">
+    <div id="tabsContainer" class="flex-v">
+      <div class="mMenuRow flex tab" id="mMenuCurrently">
+        <% if (locals.timeInfos && locals.currentRoute) { %>
+        <a href="<%= currentRoute === '/currently' ? '#' : './currently' %>">
+          <svg
+            id="currentlySvg"
+            class="svg icon tab"
+            data-name="Layer 1"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 103.01 119.3"
+            height="48"
+            width="48"
+          >
+            <defs>
+              <style>
+                .b {
+                  fill: var(--opposite-color);
+                  font-family: Poppins-Bold, Poppins;
+                  font-size: 50px;
+                }
+                .c {
+                  fill: var(--main-color);
+                }
+                .c,
+                .d {
+                  stroke: var(--opposite-color);
+                  stroke-miterlimit: 10;
+                  stroke-width: 9px;
+                }
+                .d {
+                  fill: none;
+                }
+              </style>
+            </defs>
+            <rect
+              class="c"
+              x="4.5"
+              y="14"
+              width="94.01"
+              height="92"
+              rx="10.58"
+              ry="10.58"
+            />
+            <line class="d" x1="4.99" y1="37.5" x2="99" y2="37.5" />
+            <rect
+              class="c"
+              x="73.04"
+              y="4.5"
+              width=".46"
+              height="18"
+              rx=".23"
+              ry=".23"
+            />
+            <rect
+              class="c"
+              x="29.5"
+              y="4.5"
+              width=".46"
+              height="18"
+              rx=".23"
+              ry=".23"
+            />
+            <text class="b" x="80.5" y="59.65" transform="translate(23.85 89)">
+              <tspan
+                x="<%= timeInfos[0].dayNumber.length < 2 ? '20' : '10' %>"
+                y="0"
+              >
+                <%= timeInfos[0].dayNumber %>
+              </tspan>
+            </text>
+          </svg>
+        </a>
+        <% } %> <% if (locals.currentRoute) { %>
+        <a href="<%= currentRoute === '/currently' ? '#' : './currently' %>">
+          <span
+            class="tab-text inter light <%= currentRoute === '/currently' ? 'blue' : '' %>"
+            id="currentlyTextTab"
+            >Currently</span
+          >
+        </a>
+        <% } %>
+      </div>
+      <div class="mMenuRow flex tab" id="mMenuInbox">
+        <% if (locals.currentRoute) { %>
+        <a
+          href="<%= currentRoute === '/inbox' ? '#' : './inbox' %>"
+          class="<%= currentRoute === '/inbox' ? '' : 'blue'%>"
+        >
+          <svg
+            id="inboxSvg"
+            data-name="Layer 1"
+            class="svg icon tab"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 22 18"
+            height="48"
+            width="48"
+          >
+            <defs>
+              <style>
+                .w {
+                  clip-path: url(#b);
+                }
+                .x,
+                .u {
+                  fill: none;
+                }
+                .u {
+                  stroke: var(--opposite-color);
+                  stroke-linecap: round;
+                  stroke-linejoin: round;
+                  stroke-width: 2px;
+                }
+              </style>
+              <clipPath id="b">
+                <rect class="x" x="0" width="22" height="18" />
+              </clipPath>
+            </defs>
+            <g class="w">
+              <path
+                class="u"
+                d="M21,10h-6l-2,3h-4l-2-3H1M4.47,2.19L1,10v5c0,1.11,.89,2,2,2h16c1.11,0,2-.89,2-2v-5l-3.47-7.81c-.32-.73-1.04-1.19-1.83-1.19H6.3c-.79,0-1.51,.46-1.83,1.19h0Zm0,0"
+              />
+            </g>
+          </svg>
+        </a>
+        <% } %> <% if (locals.currentRoute) { %>
+        <a href="<%= currentRoute === '/inbox' ? '#' : './inbox' %>">
+          <span
+            class="tab-text inter light <%= currentRoute === '/inbox' ? 'blue' : '' %>"
+            id="inboxTextTab"
+            >Inbox</span
+          >
+        </a>
+        <% } %>
+      </div>
+      <div class="mMenuRow flex tab" id="mMenuCalendar">
+        <% if (locals.currentRoute) { %>
+        <a href="<%= currentRoute === '/calendar' ? '#' : './calendar' %>">
+          <svg
+            id="calendarSvg"
+            class="svg icon tab"
+            width="48"
+            height="48"
+            data-name="Layer 1"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 107.64 115.5"
+          >
+            <defs>
+              <style>
+                .k {
+                  fill: var(--main-color);
+                }
+                .k,
+                .e {
+                  stroke: var(--opposite-color);
+                  stroke-miterlimit: 10;
+                  stroke-width: 9px;
+                }
+                .e {
+                  fill: none;
+                }
+                .g {
+                  fill: var(--opposite-color);
+                }
+              </style>
+            </defs>
+            <rect
+              class="k"
+              x="4.5"
+              y="14.47"
+              width="98.64"
+              height="96.53"
+              rx="10.58"
+              ry="10.58"
+            />
+            <line class="e" x1="5.02" y1="39.13" x2="103.66" y2="39.13" />
+            <rect
+              class="k"
+              x="75.36"
+              y="7"
+              width=".46"
+              height="18"
+              rx=".23"
+              ry=".23"
+            />
+            <rect
+              class="k"
+              x="30.73"
+              y="4.5"
+              width=".49"
+              height="18.89"
+              rx=".23"
+              ry=".23"
+            />
+            <g>
+              <g>
+                <circle cx="25.2" cy="58" r="5.37" />
+                <circle cx="53.83" cy="58" r="5.37" />
+                <circle cx="82.46" cy="58" r="5.37" />
+              </g>
+              <g>
+                <circle cx="25.2" cy="75" r="5.37" />
+                <circle cx="53.83" cy="75" r="5.37" />
+                <circle cx="82.46" cy="75" r="5.37" />
+              </g>
+              <g>
+                <circle cx="25.2" cy="92" r="5.37" />
+                <circle cx="53.83" cy="92" r="5.37" />
+                <circle cx="82.46" cy="92" r="5.37" />
+              </g>
+            </g>
+          </svg>
+        </a>
+        <% } %> <% if (locals.currentRoute) { %> <% if (currentRoute ===
+        "/calendar") { %>
+        <a href="#">
+          <span class="tab-text inter light" id="calendarTextTab"
+            >Calendar</span
+          >
+        </a>
+        <% } else { %>
+        <a href="./calendar">
+          <span class="tab-text inter light" id="calendarTextTab"
+            >Calendar</span
+          >
+        </a>
+        <% } %> <% } %>
+      </div>
+      <div class="mMenuRow flex tab" id="mMenuAll">
+        <% if (locals.currentRoute) { %>
+        <a href="<%= currentRoute === '/all' ? '#' : './all' %>">
+          <svg
+            id="allSvg"
+            class="svg icon tab"
+            data-name="Layer 1"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 97.27 58.36"
+            height="48"
+            width="48"
+          >
+            <path
+              d="M4.86,0C2.18,0,0,2.18,0,4.86s2.18,4.86,4.86,4.86,4.86-2.18,4.86-4.86S7.55,0,4.86,0ZM24.32,9.73H92.41c2.69,0,4.86-2.18,4.86-4.86s-2.18-4.86-4.86-4.86H24.32c-2.69,0-4.86,2.18-4.86,4.86s2.18,4.86,4.86,4.86Zm0,14.59c-2.69,0-4.86,2.18-4.86,4.86s2.18,4.86,4.86,4.86,4.86-2.18,4.86-4.86-2.18-4.86-4.86-4.86Zm19.45,24.32c-2.69,0-4.86,2.18-4.86,4.86s2.18,4.86,4.86,4.86,4.86-2.18,4.86-4.86-2.18-4.86-4.86-4.86Zm48.64-24.32H43.77c-2.69,0-4.86,2.18-4.86,4.86s2.18,4.86,4.86,4.86h48.64c2.69,0,4.86-2.18,4.86-4.86s-2.18-4.86-4.86-4.86Zm0,24.32h-29.18c-2.69,0-4.86,2.18-4.86,4.86s2.18,4.86,4.86,4.86h29.18c2.69,0,4.86-2.18,4.86-4.86s-2.18-4.86-4.86-4.86Z"
+            />
+          </svg>
+        </a>
+        <% } %> <% if (locals.currentRoute) { %> <% if (currentRoute === "/all")
+        { %>
+        <a href="#">
+          <span class="tab-text inter light" id="allTextTab">All</span>
+        </a>
+        <% } else { %>
+        <a href="./all">
+          <span class="tab-text inter light" id="allTextTab">All</span>
+        </a>
+        <% } %> <% } %>
+      </div>
+    </div>
+    <div id="dataListContainer" class="flex-v"></div>
+  </div>
+  <% if (locals.isSubscribed !== undefined) { if (locals.isSubscribed) { %>
+  <div class="premiumBtn"></div>
+  <%} else {} }%>
+</div>

@@ -1,0 +1,120 @@
+#menu {
+  border-radius: 3.125vw;
+  border-top-left-radius: 0;
+  top: 0;
+  left: 0;
+  z-index: 1500;
+  justify-content: space-between;
+  transition: width 0.5s ease-out, height 0.3s ease-out;
+}
+#menu.open {
+  height: 70vh;
+  width: 15vw;
+}
+#menu.open > * {
+  animation: appear 2.5s ease-in-out;
+}
+#menu.dark-mode {
+  border-right: 1px solid rgba(255, 255, 255, 0.5) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5) !important;
+}
+#menu.hidden {
+  height: 0;
+  width: 0;
+  opacity: 100%;
+}
+#menu.hidden * {
+  opacity: 0%;
+}
+#prph.scaleDown {
+  transform: scale(0.8);
+}
+#currentlySvg {
+  scale: 1.1;
+  fill: var(--main-color);
+}
+
+#dataListContainer {
+  width: 100%;
+  margin-bottom: 13%;
+}
+.addNewNavBarRow {
+  margin-top: 1.5vh;
+  width: 34vw;
+  justify-content: flex-start;
+}
+
+.fName {
+  font-size: 2vw;
+  color: var(--opposite-color);
+}
+.plan {
+  font-size: 0.8vw;
+  cursor: pointer;
+  letter-spacing: 1px;
+  color: var(--opposite-color);
+}
+#elementsContainer {
+  height: 75%;
+}
+#mMenuStatusInfos {
+  align-items: flex-start;
+  margin-right: 1vw;
+}
+#mMenuNavRow {
+  width: 100%;
+  height: 24%;
+  justify-content: end;
+}
+#rest {
+  height: 86%;
+  width: 100%;
+}
+.settingsSvg {
+  stroke: var(--opposite-color);
+  width: 1.6vw;
+  margin-right: 1vw;
+  transition: transform 0.75s ease-in-out;
+  cursor: pointer;
+}
+.settingsSvg:hover {
+  transform: rotate(60deg);
+  stroke: var(--blue-main);
+}
+.settingsSvg:active {
+  transform: scale(0.75);
+}
+.tab > * {
+  margin: 5%;
+}
+#tabsContainer {
+  width: 100%;
+}
+.tab-text {
+  font-size: 1.31vw;
+  transition: color 0.2s ease-in-out;
+  color: var(--opposite-color);
+}
+.tab-text:hover {
+  color: var(--blue-main);
+}
+.mMenuRow.tab {
+  justify-content: flex-start;
+  width: 100%;
+  gap: 3%;
+}
+.mMenuRow.tab > span {
+  cursor: pointer;
+  margin: 0;
+}
+.svg.icon.tab {
+  width: 2.5vw;
+  height: 4.44vh;
+  transition: transform 0.3s ease;
+  margin: 8%;
+  cursor: pointer;
+  fill: var(--opposite-color);
+}
+.svg.icon.tab:hover {
+  transform: scale(1.1);
+}
