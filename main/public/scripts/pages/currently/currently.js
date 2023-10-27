@@ -8,8 +8,13 @@ import {
   toggleClassesOnElements,
   toggleMainMenu,
   toggleSearch,
-} from "./main.js";
-const [prph, menu, viewsMenu, addNewContainer, addNewsvg, navbar] = [
+} from "../../main.js";
+import {
+  blurFullScreen,
+  dotsContainer,
+  viewsMenuIsOpen,
+} from "./viewsMenu/viewsMenu_fonctions.js";
+export const [prph, menu, viewsMenu, addNewContainer, addNewsvg, navbar] = [
   "prph",
   "menu",
   "menu-views",
@@ -18,23 +23,24 @@ const [prph, menu, viewsMenu, addNewContainer, addNewsvg, navbar] = [
   "navbar",
 ].map((id) => document.getElementById(id));
 
-const dotsContainer = document.querySelectorAll(".dots-container");
 const clocks = [...document.querySelectorAll("p.clock")];
 const optionsArray = document.querySelectorAll(".options");
 const option = document.querySelectorAll(".option");
 const dropDownArrows = document.querySelectorAll(".dropdown.arrow");
-const blurFullScreen = document.querySelector("#blur");
-export const viewsMenuIsOpen = { value: false };
+
+export const warnIfNotFound = (element, msg) => {
+  if (!element) {
+    console.warn(msg);
+    return true;
+  }
+  return false;
+};
 
 // Check if essential elements are found
 if (!prph || !menu || !viewsMenu || !dotsContainer || !blurFullScreen) {
   console.error(
     "Essential DOM elements not found. Please check their IDs or classes."
   );
-}
-function openViewsMenu() {
-  toggleClassTo(viewsMenu, ["visHidden", "open"]);
-  viewsMenuIsOpen.value = true;
 }
 
 function closeViewsMenu() {
@@ -57,21 +63,6 @@ function closeViewsMenu() {
   toggleClassTo(blurFullScreen, "blur-background");
   removeClassTo([addNewContainer, addNewsvg], ["top-right-corner", "ontop"]);
   viewsMenuIsOpen.value = false;
-}
-
-function blurMenu() {
-  try {
-    if (!viewsMenu || !blurFullScreen) {
-      console.warn("ViewsMenu or blurFullScreen elements not found.");
-      return;
-    }
-    toggleClassTo(blurFullScreen, "visHidden");
-    viewsMenu.classList.contains("open")
-      ? addClassTo(blurFullScreen, "blur-background")
-      : removeClassTo(blurFullScreen, "blur-background");
-  } catch (error) {
-    console.error("Error in blurMenu function:", error);
-  }
 }
 function closeAll() {
   if (viewsMenuIsOpen.value) {
@@ -163,44 +154,6 @@ if (cardsContainer) {
 } else {
   console.warn("Element with ID 'cards-container' not found.");
 }
-const warnIfNotFound = (element, msg) => {
-  if (!element) {
-    console.warn(msg);
-    return true;
-  }
-  return false;
-};
-
-dotsContainer.forEach((dotsContainerThis) => {
-  dotsContainerThis.addEventListener("click", () => {
-    try {
-      if (
-        warnIfNotFound(
-          navbar,
-          "Element with ID 'search-bar-container' not found."
-        )
-      )
-        return;
-
-      toggleClassTo(navbar, "ontop");
-      openViewsMenu();
-
-      if (
-        warnIfNotFound(addNewContainer, "Element with ID 'add-new' not found.")
-      )
-        return;
-
-      toggleClassTo(
-        [addNewContainer, addNewsvg],
-        ["top-right-corner", "ontop"]
-      );
-      blurMenu();
-    } catch (error) {
-      console.error("Error in dotsContainer click event listener:", error);
-    }
-    console.log(viewsMenuIsOpen);
-  });
-});
 
 addNewContainer.addEventListener("click", function () {
   if (viewsMenuIsOpen.value) {
