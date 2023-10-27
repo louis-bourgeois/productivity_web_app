@@ -36,12 +36,6 @@ export const warnIfNotFound = (element, msg) => {
   return false;
 };
 
-// Check if essential elements are found
-if (!prph || !menu || !viewsMenu || !dotsContainer || !blurFullScreen) {
-  console.error(
-    "Essential DOM elements not found. Please check their IDs or classes."
-  );
-}
 
 function closeViewsMenu() {
   toggleClassesOnElements([navbar, viewsMenu], ["ontop", "open"]);

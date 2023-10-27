@@ -1,4 +1,4 @@
-import { viewsMenuIsOpen } from "./pages/currently/viewsMenu/viewsMenu_fonctions";
+import { viewsMenuIsOpen } from "./pages/currently/viewsMenu/viewsMenu_fonctions.js";
 
 const mainMenu = document.getElementById("menu");
 const prph = document.getElementById("prph");
