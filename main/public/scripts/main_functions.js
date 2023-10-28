@@ -1,34 +1,12 @@
-import { viewsMenuIsOpen } from "./pages/currently/viewsMenu/viewsMenu_fonctions.js";
-
-const mainMenu = document.getElementById("menu");
-const prph = document.getElementById("prph");
-const prphContainer = document.querySelector("#prph-container");
-const searchIcon = document.getElementById("search");
-const searchIconContainer = document.getElementById("search-bar-container");
-const searchMenuContainer = document.getElementById("searchMenuContainer");
-const blurFullScreen = document.querySelector("#blur");
-export const mainMenuIsOpen = { value: false };
-export const searchIsActive = { value: false };
-
-export async function sendToServer(data, url) {
-  console.log("Sending data: ", data);
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: data, // Ici, on utilise directement la donnée stringifiée
-    });
-
-    if (response.ok) {
-      const responseData = await response.text();
-      console.log("Data sent successfully. Received data:", responseData);
-    } else {
-      console.log("Network response was not ok.");
-    }
-  } catch (error) {
-    console.error("There was a problem with the fetch operation:", error);
-  }
-}
+import {
+  blurFullScreen,
+  mainMenu,
+  mainMenuIsOpen,
+  prph,
+  prphContainer,
+  searchIsActive,
+} from "./main_variables.js";
+import { viewsMenuIsOpen } from "./pages/currently/viewsMenu/viewsMenu_variables.js";
 
 function manipulateClass(method, element, property = "hidden") {
   const elements = Array.isArray(element) ? element : [element];
@@ -40,7 +18,6 @@ function manipulateClass(method, element, property = "hidden") {
     )
   );
 }
-
 export function toggleMainMenu() {
   // Assume mainMenuIsOpen, mainMenu, and prph are defined elsewhere
   const shouldToggleBlur = !viewsMenuIsOpen.value && !searchIsActive.value;
@@ -71,6 +48,25 @@ export function toggleMainMenu() {
   return;
 }
 
+export async function sendToServer(data, url) {
+  console.log("Sending data: ", data);
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: data, // Ici, on utilise directement la donnée stringifiée
+    });
+
+    if (response.ok) {
+      const responseData = await response.text();
+      console.log("Data sent successfully. Received data:", responseData);
+    } else {
+      console.log("Network response was not ok.");
+    }
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+  }
+}
 /**
  * Toggles the search menu's visibility and also manages the blurring of other parts of the UI.
  * The blurring depends on whether other menus are open to avoid conflicts.
@@ -136,8 +132,7 @@ export function toggleClassesOnElements(elements, classes) {
   elements.forEach((el, i) => toggleClassTo(el, classes[i]));
 }
 
-// a revoir
-function defineArrowSize() {
+export function defineArrowSize() {
   const vh = window.innerHeight * 0.01;
   const arrows = document.querySelectorAll(".arrow");
   arrows.forEach((arrow) => arrow.setAttribute("height", vh * 5 + "px"));
@@ -167,81 +162,3 @@ export function changeStyleOf(element, styleName, value) {
     });
   });
 }
-export function toggleSearchBar() {}
-const mMenuRows = document.querySelectorAll(".mMenuRow");
-prph.addEventListener("click", function () {
-  toggleMainMenu();
-});
-searchIcon.addEventListener("click", toggleSearchBar);
-
-document.addEventListener("DOMContentLoaded", function () {});
-// Sélectionne tous les éléments dans le document
-document.querySelectorAll("*").forEach((element) => {
-  toggleClassTo(element, "dark-mode");
-});
-
-// Ajoute des écouteurs d'événements à chaque élément .mMenuRow
-mMenuRows.forEach((mMenuRow) => {
-  mMenuRow.addEventListener("mousedown", function () {
-    const childElements = this.querySelectorAll(":scope > *:not(div)");
-    childElements.forEach((child) => {
-      addClassTo(child, "blue");
-    });
-  });
-
-  mMenuRow.addEventListener("mouseup", function () {
-    const childElements = this.querySelectorAll(":scope > *:not(div)");
-    childElements.forEach((child) => {
-      removeClassTo(child, "blue");
-    });
-  });
-
-  // Pour gérer le cas où la souris sort de l'élément tout en étant enfoncée
-  mMenuRow.addEventListener("mouseleave", function () {
-    const childElements = this.querySelectorAll(":scope > *:not(div)");
-    childElements.forEach((child) => {
-      removeClassTo(child, "blue");
-    });
-  });
-});
-searchIconContainer.addEventListener("click", () => {
-  toggleSearch();
-  setTimeout(() => {
-    document.querySelector(".inputLine > input").focus();
-  }, 20);
-});
-
-let timeoutId;
-
-document.getElementById("searchField").addEventListener("input", function (e) {
-  clearTimeout(timeoutId); // Efface le timeout précédent
-
-  timeoutId = setTimeout(() => {
-    // Définit un nouveau timeout
-    const data = e.target.value;
-    sendToServer(JSON.stringify({ data }), "/currently/searchInput");
-  }, 200);
-});
-
-document.addEventListener("keydown", function (e) {
-  if ((e.ctrlKey && e.key === "k") | (e.key === "/")) {
-    e.preventDefault();
-    toggleSearch();
-    setTimeout(() => {
-      document.querySelector(".inputLine > input").focus();
-    }, 20);
-  }
-  if (e.key === "Escape") {
-    if (mainMenuIsOpen.value) {
-      toggleMainMenu();
-    }
-    if (searchIsActive.value) {
-      toggleSearch();
-    }
-  }
-  if (e.altKey) {
-    e.preventDefault();
-  }
-});
-
-setInterval(defineArrowSize, 1000);
